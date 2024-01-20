@@ -11,26 +11,30 @@ const GOOGLE_CLIENT_ID =
 const Skeleton = ({ userId, handleLogin, handleLogout }) => {
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      {/* <div> */}
-      <img className="background_Container" src={background_photo}></img>
-      <div className="bigDiv">
-        {userId ? (
-          <button
-            onClick={() => {
-              googleLogout();
-              handleLogout();
-            }}
-          >
-            Logout
-          </button>
-        ) : (
-          <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
-        )}
+      <div style={{
+        backgroundImage: `url(${background_photo})`, 
+        margin: 0,
+        width: "100%", 
+        height: "100vh",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}>
+          {userId ? (
+            <button
+              onClick={() => {
+                googleLogout();
+                handleLogout();
+              }}
+            >
+              Logout
+            </button>
+          ) : (
+            <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
+          )}
 
-        <h1 className="game_Title"> AI Spyfall </h1>
-        <h2 className="game_Subtitle"> Uncover the spy in this thrilling, deceptive game! </h2>
-      </div>
-      {/* </div> */}
+          <h1 className="game_Title"> AI Spyfall </h1>
+          <h2 className="game_Subtitle"> Uncover the spy in this thrilling, deceptive game! </h2>
+        </div>
     </GoogleOAuthProvider>
   );
 };
