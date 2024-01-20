@@ -1,21 +1,27 @@
 /* Fill me in :) */
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Rubik+Bubbles&display=swap");
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #a9a9a9;
+  padding: 0px;
 }
-.title_Container {
-  padding-top: 25 px;
+.game_Title {
+  font-family: "Rubik Bubbles", system-ui;
   text-align: center;
-  font-size: 60px;
+  font-size: 150px;
+  z-index: 0;
 }
-.subtitle_Container {
+.game_Subtitle {
+  z-index: 0;
+  font-family: "Oswald", sans-serif;
+  font-size: 50px;
+  position: relative;
   text-align: center;
+  top: -50px;
 }
-.banner {
+.background_Container {
+  z-index: -1;
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
-    url("photos/Background.jpg");
   background-size: cover;
   background-position: center;
 }
