@@ -5,7 +5,7 @@ import "../../utilities.css";
 import "./Skeleton.css";
 
 //TODO: REPLACE WITH YOUR OWN CLIENT_ID
-const GOOGLE_CLIENT_ID = "FILL ME IN";
+const GOOGLE_CLIENT_ID = "https://docs.google.com/document/d/110JdHAn3Wnp3_AyQLkqH2W8h5oby7OVsYIeHYSiUzRs/edit?usp=sharing";
 
 const Skeleton = ({ userId, handleLogin, handleLogout }) => {
   return (
@@ -28,6 +28,7 @@ const Skeleton = ({ userId, handleLogin, handleLogout }) => {
         <li>
           Change the Frontend CLIENT_ID (Skeleton.js) to your team's CLIENT_ID (obtain this at
           http://weblab.is/clientid)
+
         </li>
         <li>Change the Server CLIENT_ID to the same CLIENT_ID (auth.js)</li>
         <li>
