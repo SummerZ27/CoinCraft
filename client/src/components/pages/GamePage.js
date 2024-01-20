@@ -1,11 +1,10 @@
 import React from "react";
-
+import "./GamePage.css"
 const GamePage = () => {
   return (
-    <div>
-      <h1>gamepage</h1>
+    <div className="backgroundimage">
+      
     </div>
   );
-};
-
+}
 export default GamePage;
