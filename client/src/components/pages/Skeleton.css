@@ -8,10 +8,8 @@ body {
   font-family: "Rubik Bubbles", system-ui;
   text-align: center;
   font-size: 150px;
-  z-index: 0;
 }
 .game_Subtitle {
-  z-index: 0;
   font-family: "Oswald", sans-serif;
   font-size: 50px;
   position: relative;
@@ -19,9 +17,12 @@ body {
   top: -50px;
 }
 .background_Container {
-  z-index: -1;
-  width: 100%;
-  height: 100%;
   background-size: cover;
   background-position: center;
+  width: 100vw;
+  height: 100vh;
+}
+.bigDiv {
+  position: relative;
+  top: -100vh;
 }
