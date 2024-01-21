@@ -7,16 +7,16 @@ body {
 .game_Title {
   font-family: "Rubik Bubbles", system-ui;
   text-align: center;
-  font-size: 150px;
+  font-size: 120px;
   color: white;
 
 }
 .game_Subtitle {
   font-family: "Oswald", sans-serif;
-  font-size: 50px;
+  font-size: 40px;
   position: relative;
   text-align: center;
-  top: -40px;
+  top: -30px;
   color: white;
 }
 .background_Container {
@@ -24,4 +24,23 @@ body {
   background-position: center;
   width: 100vw;
   height: 100vh;
+}
+.getStartedButton {
+  background-color: white;
+  color: black; 
+  padding: 10px 20px; 
+  border-radius: 10px; 
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease; 
+  text-align: center;
+  margin: 0 auto;
+}
+.container {
+  width: 100%; /* Set an appropriate width for the container */
+  text-align: center; /* Center the button horizontally within the container */
+}
+
+.getStartedButton:hover {
+  background-color: #f0f0f0; 
 }

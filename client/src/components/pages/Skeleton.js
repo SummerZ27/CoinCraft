@@ -9,6 +9,10 @@ const GOOGLE_CLIENT_ID =
   "https://docs.google.com/document/d/110JdHAn3Wnp3_AyQLkqH2W8h5oby7OVsYIeHYSiUzRs/edit?usp=sharing";
 
 const Skeleton = ({ userId, handleLogin, handleLogout }) => {
+  const redirectToGamePage = () =>{
+    // Use window.location.href to change the current URL
+    window.location.href = "/GamePage";
+  }
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <div style={{
@@ -34,6 +38,10 @@ const Skeleton = ({ userId, handleLogin, handleLogout }) => {
 
           <h1 className="game_Title"> AI Spyfall </h1>
           <h2 className="game_Subtitle"> Uncover the spy in this thrilling, deceptive game! </h2>
+          <div className="container">
+            <button onClick={redirectToGamePage} className="getStartedButton">Go to GamePage</button>
+          </div>
+
         </div>
     </GoogleOAuthProvider>
   );
