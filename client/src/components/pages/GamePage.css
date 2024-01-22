@@ -26,3 +26,26 @@ body {
   position: relative;
   top: -100vh;
 }
+.player1 {
+  width: 250px;
+  height: 300px;
+  position: absolute;
+  top: 250px;
+  left: 100px;
+}
+
+.player2 {
+  width: 250px;
+  height: 300px;
+  position: absolute;
+  top: 155px;
+  left: 600px;
+}
+
+.player3 {
+  width: 250px;
+  height: 300px;
+  position: absolute;
+  top: 200px;
+  right: 100px;
+}
