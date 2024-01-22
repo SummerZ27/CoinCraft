@@ -49,3 +49,11 @@ body {
   top: 200px;
   right: 100px;
 }
+
+.rollingDice {
+  width: 100px;
+  height: 60px;
+  position: absolute;
+  top: 440px;
+  right: 680px;
+}
