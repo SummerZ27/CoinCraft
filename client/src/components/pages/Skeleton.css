@@ -17,6 +17,15 @@ body {
   text-align: center;
   top: -30px;
   color: white;
+  -webkit-text-stroke: 2px black;
+
+  animation-name: slideInLeftSubtitle;
+  animation-duration: 0.75s;
+  animation-timing-function: ease-in;
+  animation-delay: 0.75s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: backwards;
 }
 .background_Container {
   background-size: cover;
@@ -34,6 +43,20 @@ body {
   transition: background-color 0.3s ease;
   text-align: center;
   margin: 0 auto;
+
+  transition: all 0.5s;
+
+  animation-name: slideInTopButton;
+  animation-duration: 0.75s;
+  animation-timing-function: ease-in;
+  animation-delay: 1s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: backwards;
+}
+.getStartedButton:hover {
+  transform: translateY(-10px);
+  border: 5px solid #a9423f;
 }
 .container {
   width: 100%; /* Set an appropriate width for the container */
@@ -42,16 +65,4 @@ body {
 
 .getStartedButton:hover {
   background-color: #f0f0f0;
-}
-
-.logoutbutton {
-  background-color: white;
-  color: black;
-  padding: 10px 20px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-  text-align: center;
-  margin: 0 auto;
 }
