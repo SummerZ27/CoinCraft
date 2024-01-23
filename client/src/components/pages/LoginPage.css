@@ -1,0 +1,17 @@
+.game_Subtitle {
+  font-family: "Oswald", sans-serif;
+  font-size: 40px;
+  position: relative;
+  text-align: center;
+  top: -30px;
+  color: white;
+  -webkit-text-stroke: 2px black;
+
+  animation-name: slideInLeftSubtitle;
+  animation-duration: 0.75s;
+  animation-timing-function: ease-in;
+  animation-delay: 0.75s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: backwards;
+}

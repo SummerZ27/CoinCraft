@@ -6,38 +6,13 @@ import "./Skeleton.css";
 import background_photo from "../../public/Background.jpg";
 const GOOGLE_CLIENT_ID = "819648348238-uvbmrkooo5ccovnco5mtr19mc8lkub17.apps.googleusercontent.com";
 
-const Skeleton = () => {
-  const [loggedIn, setloggedIn] = useState(null);
-
-  // useEffect(() => {
-  //   get("/api/whoami").then((user) => {
-  //     if (user._id) {
-  //       // they are registed in the database, and currently logged in.
-  //       setUserId(user._id);
-  //     }
-  //   });
-  // }, []);
-
+const Skeleton = ({ handleLogin, handleLogout, userId }) => {
   const redirectToGamePage = () => {
-    window.location.href = "/GamePage";
-  };
-
-  const handleLogin = (res) => {
-    // 'res' contains the response from Google's authentication servers
-    console.log(res);
-    setloggedIn(true);
-    //const userToken = res.tokenObj.id_token;
-    // post("/api/login", { token: userToken }).then((user) => {
-    //   // the server knows we're logged in now
-    //   setUserId(user._id);
-    //   console.log(user);
-    // });
-  };
-
-  const handleLogout = () => {
-    console.log("Logged out successfully!");
-    post("/api/logout");
-    setloggedIn(false);
+    if (userId) {
+      window.location.href = "/GamePage";
+    } else {
+      window.location.href = "/LoginPage";
+    }
   };
 
   return (
@@ -52,7 +27,7 @@ const Skeleton = () => {
           backgroundSize: "cover",
         }}
       >
-        {loggedIn ? (
+        {userId ? (
           <button
             className="logoutbutton"
             onClick={() => {

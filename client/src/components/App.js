@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode";
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
 import GamePage from "./pages/GamePage.js";
+import LoginPage from "./pages/LoginPage.js";
 
 import "../utilities.css";
 
@@ -37,8 +38,18 @@ const App = () => {
       post("/api/initsocket", { socketid: socket.id });
     });
   };
-
+  const handleLogin2 = (credentialResponse) => {
+    const userToken = credentialResponse.credential;
+    const decodedCredential = jwt_decode(userToken);
+    console.log(`Logged in as ${decodedCredential.name}`);
+    post("/api/login", { token: userToken }).then((user) => {
+      setUserId(user._id);
+      post("/api/initsocket", { socketid: socket.id });
+    });
+    window.location.href = "/GamePage";
+  };
   const handleLogout = () => {
+    console.log("Log out successful");
     setUserId(undefined);
     post("/api/logout");
   };
@@ -57,7 +68,8 @@ const App = () => {
         }
       />
       <Route path="*" element={<NotFound />} />
-      <Route path="/gamepage" element={<GamePage />}/>
+      <Route path="/gamepage" element={<GamePage />} />
+      <Route path="/loginpage" element={<LoginPage handleLogin={handleLogin2} />} />
     </Routes>
   );
 };
