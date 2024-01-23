@@ -1,0 +1,17 @@
+.title {
+  text-align: center;
+}
+
+.homeButton {
+  background-color: white;
+  color: black;
+  text-align: center;
+  font-size: 24px;
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.body {
+  text-align: left;
+  padding: 10px 80px 10px 60px;
+}
