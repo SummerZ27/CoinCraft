@@ -9,6 +9,7 @@ body {
   text-align: center;
   font-size: 120px;
   color: white;
+  -webkit-text-stroke: 4px black;
 
   animation-name: slideInLeftTitle;
   animation-duration: 1s;
@@ -25,6 +26,7 @@ body {
   text-align: center;
   top: -30px;
   color: white;
+  -webkit-text-stroke: 2px black;
 
   animation-name: slideInLeftSubtitle;
   animation-duration: 0.75s;
