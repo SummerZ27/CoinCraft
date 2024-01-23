@@ -19,6 +19,7 @@ import { get, post } from "../utilities";
  */
 const App = () => {
   const [userId, setUserId] = useState(undefined);
+  const [userName, setUserName] = useState(undefined);
 
   useEffect(() => {
     get("/api/whoami").then((user) => {
@@ -68,7 +69,7 @@ const App = () => {
         }
       />
       <Route path="*" element={<NotFound />} />
-      <Route path="/gamepage" element={<GamePage />} />
+      <Route path="/gamepage" element={<GamePage userName={userId} />} />
       <Route path="/loginpage" element={<LoginPage handleLogin={handleLogin2} />} />
     </Routes>
   );

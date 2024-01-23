@@ -8,7 +8,8 @@ import dice_rolling from "../../public/DiceRolling.gif";
 import "../modules/Dice.js";
 import "../modules/Dice.css";
 
-const GamePage = () => {
+const GamePage = ({ userName }) => {
+  console.log(userName);
   return (
     <div
       style={{
@@ -20,6 +21,7 @@ const GamePage = () => {
         backgroundSize: "cover",
       }}
     >
+      <h3 className="welcomemessage"> Welcome, {userName && <span>{userName}</span>} </h3>
       <img src={player1} className="player1" />;
       <img src={player2} className="player2" />;
       <img src={player3} className="player3" />;
