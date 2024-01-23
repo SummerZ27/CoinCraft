@@ -7,6 +7,7 @@ import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
 import GamePage from "./pages/GamePage.js";
 import LoginPage from "./pages/LoginPage.js";
+import Rule from "./pages/rules.js";
 
 import "../utilities.css";
 
@@ -69,7 +70,7 @@ const App = () => {
         }
       />
       <Route path="*" element={<NotFound />} />
-      <Route path="/gamepage" element={<GamePage userName={userId} />} />
+      <Route path="/gamepage" element={<GamePage />} />
       <Route path="/loginpage" element={<LoginPage handleLogin={handleLogin2} />} />
     </Routes>
   );
