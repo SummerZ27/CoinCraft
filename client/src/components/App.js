@@ -70,7 +70,7 @@ const App = () => {
         }
       />
       <Route path="*" element={<NotFound />} />
-      <Route path="/gamepage" element={<GamePage />} />
+      <Route path="/gamepage" element={<GamePage userName={userId} />} />
       <Route path="/loginpage" element={<LoginPage handleLogin={handleLogin2} />} />
     </Routes>
   );
