@@ -2,7 +2,7 @@ import * as CANNON from "cannon-es";
 import * as THREE from "three";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 
-const canvasEl = document.querySelector("#canvas");
+const canvasEl = document.querySelector("canvas");
 const scoreResult = document.querySelector("#score-result");
 const rollBtn = document.querySelector("#roll-btn");
 
@@ -23,16 +23,18 @@ initScene();
 
 window.addEventListener("resize", updateSceneSize);
 window.addEventListener("dblclick", throwDice);
-rollBtn.addEventListener("click", throwDice);
+// rollBtn.addEventListener("click", throwDice);
 
 function initScene() {
   renderer = new THREE.WebGLRenderer({
     alpha: true,
     antialias: true,
-    canvas: canvasEl,
+    // canvas: canvasEl,
   });
+  // renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.shadowMap.enabled = true;
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  document.body.appendChild(renderer.domElement);
 
   scene = new THREE.Scene();
 
@@ -294,11 +296,11 @@ function addDiceEvents(dice) {
 }
 
 function showRollResults(score) {
-  if (scoreResult.innerHTML === "") {
-    scoreResult.innerHTML += score;
-  } else {
-    scoreResult.innerHTML += "+" + score;
-  }
+  // if (scoreResult.innerHTML === "") {
+  //   scoreResult.innerHTML += score;
+  // } else {
+  //   scoreResult.innerHTML += "+" + score;
+  // }
 }
 
 function render() {
@@ -316,11 +318,13 @@ function render() {
 function updateSceneSize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
+  console.log(window.innerWidth, window.innerHeight);
+  console.log(renderer);
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 function throwDice() {
-  scoreResult.innerHTML = "";
+  // scoreResult.innerHTML = "";
 
   diceArray.forEach((d, dIdx) => {
     d.body.velocity.setZero();
