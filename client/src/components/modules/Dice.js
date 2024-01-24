@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as CANNON from "cannon-es";
 import * as THREE from "three";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
@@ -6,6 +6,8 @@ import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js"
 const DiceRoller = () => {
   let renderer, scene, camera, diceMesh, physicsWorld;
   const diceArray = [];
+
+  const [score, setScore] = useState(0);
 
   const params = {
     numberOfDice: 2,
@@ -297,12 +299,8 @@ const DiceRoller = () => {
     });
   }
 
-  function showRollResults(score) {
-    if (scoreResult.innerHTML === "") {
-      scoreResult.innerHTML += score;
-    } else {
-      scoreResult.innerHTML += "+" + score;
-    }
+  function showRollResults(incre) {
+    setScore(prevScore => prevScore + incre)
   }
 
   function render() {
@@ -324,8 +322,8 @@ const DiceRoller = () => {
   }
 
   function throwDice() {
-    scoreResult.innerHTML = "";
-
+    // scoreResult.innerHTML = "";
+    setScore(prevScore => 0);
     diceArray.forEach((d, dIdx) => {
       d.body.velocity.setZero();
       d.body.angularVelocity.setZero();
@@ -343,7 +341,7 @@ const DiceRoller = () => {
     });
   }
 
-  return null; // or you can return a JSX component to render
+  return  <div>Score: {score}</div>; // or you can return a JSX component to render
 };
 
 export default DiceRoller;
