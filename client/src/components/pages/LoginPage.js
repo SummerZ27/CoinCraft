@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import background_photo from "../../public/Background.jpg";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
+import "./LoginPage.css";
 const GOOGLE_CLIENT_ID = "819648348238-uvbmrkooo5ccovnco5mtr19mc8lkub17.apps.googleusercontent.com";
 
 const LoginPage = ({ handleLogin }) => {
@@ -12,7 +13,7 @@ const LoginPage = ({ handleLogin }) => {
           backgroundImage: `url(${background_photo})`,
           margin: 0,
           width: "100%",
-          height: "100vh",
+          height: "101vh",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
@@ -25,6 +26,7 @@ const LoginPage = ({ handleLogin }) => {
           onFailure={(err) => console.log(err)}
           redirectUri="/GamePage" // Set the redirectUri to the desired page after successful login
           scope="openid profile"
+          className="googleButton"
         />
       </div>
     </GoogleOAuthProvider>

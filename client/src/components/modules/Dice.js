@@ -300,7 +300,8 @@ const DiceRoller = () => {
   }
 
   function showRollResults(incre) {
-    setScore(prevScore => prevScore + incre)
+    setScore((prevScore) => prevScore + incre);
+    console.log(score);
   }
 
   function render() {
@@ -323,7 +324,7 @@ const DiceRoller = () => {
 
   function throwDice() {
     // scoreResult.innerHTML = "";
-    setScore(prevScore => 0);
+    setScore((prevScore) => 0);
     diceArray.forEach((d, dIdx) => {
       d.body.velocity.setZero();
       d.body.angularVelocity.setZero();
@@ -341,7 +342,7 @@ const DiceRoller = () => {
     });
   }
 
-  return  <div>Score: {score}</div>; // or you can return a JSX component to render
+  return <div>Score: {score}</div>; // or you can return a JSX component to render
 };
 
 export default DiceRoller;

@@ -26,7 +26,7 @@ const Skeleton = ({ handleLogin, handleLogout, userId }) => {
           backgroundImage: `url(${background_photo})`,
           margin: 0,
           width: "100%",
-          height: "100vh",
+          height: "101vh",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
@@ -52,7 +52,7 @@ const Skeleton = ({ handleLogin, handleLogout, userId }) => {
         )}
 
         <h1 className="game_Title"> AI Spyfall </h1>
-        <h2 className="game_Subtitle"> Uncover the spy in this thrilling, deceptive game! </h2>
+        <h2 className="game_Home_Subtitle"> Uncover the spy in this thrilling, deceptive game! </h2>
         <div className="container">
           <button onClick={redirectToGamePage} className="getStartedButton">
             Go to GamePage
