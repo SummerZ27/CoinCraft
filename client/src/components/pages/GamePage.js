@@ -4,8 +4,8 @@ import background_photo from "../../public/gameroom_background.png";
 import player1 from "../../public/player1.png";
 import player2 from "../../public/player2.png";
 import player3 from "../../public/player3.png";
+import DiceRoller from "../modules/Dice.js";
 import dice_rolling from "../../public/DiceRolling.gif";
-import "../modules/Dice.js";
 import "../modules/Dice.css";
 
 const GamePage = ({ userName }) => {
@@ -35,7 +35,7 @@ const GamePage = ({ userName }) => {
             <button id="roll-btn">Throw the dice</button>
           </div>
         </div>
-        <script type="module" src="../modules/Dice.js"></script>
+        <DiceRoller />
       </body>
     </div>
   );
