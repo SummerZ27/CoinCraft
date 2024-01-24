@@ -1,7 +1,7 @@
 {
   "name": "weblab-skeleton",
   "version": "1.0.0",
-  "description": "",
+  "description": "## Initial setup",
   "main": "server/server.js",
   "scripts": {
     "hotloader": "webpack serve --config ./webpack.config.js --mode development --port 5050",
