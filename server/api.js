@@ -49,4 +49,23 @@ router.all("*", (req, res) => {
   res.status(404).send({ msg: "API route not found" });
 });
 
+router.get("/GamePage", (req, res) => {
+  res.send(data.gamepage);
+});
+
+router.post("/GamePage", (req, res) => {
+  const newPrompt = {
+    question: req.body.content,
+  };
+  data.prompts.push(newPrompt);
+  res.send(newPrompt);
+});
 module.exports = router;
+
+const data = {
+  prompts: [
+    {
+      question: "hello",
+    },
+  ],
+};

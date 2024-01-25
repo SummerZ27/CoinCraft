@@ -106,3 +106,13 @@ body {
   border: none;
   cursor: pointer;
 }
+
+#canvas {
+  width: 25%;
+  height: 25%;
+}
+
+.div_sizer {
+  width: 25%;
+  height: 25%;
+}

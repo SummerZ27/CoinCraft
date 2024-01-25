@@ -319,7 +319,7 @@ const DiceRoller = () => {
   function updateSceneSize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(750, 500);
   }
 
   function throwDice() {

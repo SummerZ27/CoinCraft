@@ -35,8 +35,8 @@ const GamePage = ({ userName }) => {
       <img src={player2} className="player2" />;
       <img src={player3} className="player3" />;
       <img src={player4} className="player4" />;
-      <div className="content">
-        <canvas id="canvas"></canvas>
+      <div className="div_sizer">
+        <canvas id="canvas" width="100" height="100"></canvas>
         <div className="ui-controls">
           <button id="roll-btn">Throw the dice</button>
         </div>
@@ -54,4 +54,5 @@ const GamePage = ({ userName }) => {
     </div>
   );
 };
+
 export default GamePage;
