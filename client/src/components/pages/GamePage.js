@@ -11,13 +11,18 @@ import DiceRoller from "../modules/Dice.js";
 const GamePage = ({ userName }) => {
   console.log(userName);
   const [inputText, setInputText] = useState("");
+  const [textBox, setTextBox] = useState("");
   const handleInputChange = (event) => {
     setInputText(event.target.value);
   };
   const handleSubmit = () => {
     // Do something with the input text, e.g., send it to a server
     console.log("Submitted:", inputText);
+    setTextBox("Game Starts");
     // You can add more logic here based on your use case
+  };
+  const startGameButton = () => {
+    console.log("Game Starts");
   };
 
   return (
@@ -31,6 +36,8 @@ const GamePage = ({ userName }) => {
         backgroundSize: "cover",
       }}
     >
+      <div className="textbox">{textBox}</div>
+      <button onClick={startGameButton}>Start Game</button>
       <img src={player1} className="player1" />;
       <img src={player2} className="player2" />;
       <img src={player3} className="player3" />;

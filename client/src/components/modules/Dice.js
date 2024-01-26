@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as CANNON from "cannon-es";
 import * as THREE from "three";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
-
+import "./Dice.css";
 const DiceRoller = () => {
   let renderer, scene, camera, diceMesh, physicsWorld;
   const diceArray = [];
@@ -22,21 +22,26 @@ const DiceRoller = () => {
     initScene();
 
     window.addEventListener("resize", updateSceneSize);
-    window.addEventListener("dblclick", throwDice);
+    window.addEventListener("click", throwDice);
 
     return () => {
       window.removeEventListener("resize", updateSceneSize);
-      window.removeEventListener("dblclick", throwDice);
+      window.removeEventListener("click", throwDice);
     };
   }, []);
 
   function initScene() {
+    const yOffset = 30; // Adjust this value as needed
     renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: true,
     });
     renderer.shadowMap.enabled = true;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.domElement.style.position = "absolute";
+    renderer.domElement.style.left = "50%";
+    renderer.domElement.style.top = `calc(50% - ${yOffset}px)`;
+    renderer.domElement.style.transform = "translate(-50%, -50%)";
     document.body.appendChild(renderer.domElement);
 
     scene = new THREE.Scene();
@@ -301,7 +306,6 @@ const DiceRoller = () => {
 
   function showRollResults(incre) {
     setScore((prevScore) => prevScore + incre);
-    console.log(score);
   }
 
   function render() {
@@ -317,9 +321,17 @@ const DiceRoller = () => {
   }
 
   function updateSceneSize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
+    const quarterScreenWidth = window.innerWidth / 1.7;
+    const quarterScreenHeight = window.innerHeight / 1.7;
+
+    // Update the camera aspect ratio based on the new window dimensions
+    camera.aspect = quarterScreenWidth / quarterScreenHeight;
+
+    // Update the camera's projection matrix to reflect the changes
     camera.updateProjectionMatrix();
-    renderer.setSize(750, 500);
+
+    // Set the size of the renderer to one-fourth of the screen
+    renderer.setSize(quarterScreenWidth, quarterScreenHeight);
   }
 
   function throwDice() {
@@ -342,7 +354,7 @@ const DiceRoller = () => {
     });
   }
 
-  return <div>Score: {score}</div>; // or you can return a JSX component to render
+  return <div className="Score">Score: {score}</div>;
 };
 
 export default DiceRoller;

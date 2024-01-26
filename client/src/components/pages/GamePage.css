@@ -110,9 +110,28 @@ body {
 #canvas {
   width: 25%;
   height: 25%;
+  display: block;
+  margin: 0 auto; /* Center the canvas horizontally */
 }
 
 .div_sizer {
   width: 25%;
   height: 25%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.textbox {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 100px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 20px;
 }
