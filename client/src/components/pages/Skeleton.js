@@ -50,8 +50,11 @@ const Skeleton = ({ handleLogin, handleLogout, userId }) => {
             scope="openid profile"
           />
         )}
-
-        <h1 className="game_Title"> AI Spyfall </h1>
+        <div className="game_Title_div">
+          <h1 className="game_Title" data-text="&nbsp;AI Spyfall&nbsp;">
+            &nbsp;AI Spyfall&nbsp;
+          </h1>
+        </div>
         <h2 className="game_Home_Subtitle"> Uncover the spy in this thrilling, deceptive game! </h2>
         <div className="container">
           <button onClick={redirectToGamePage} className="getStartedButton">
