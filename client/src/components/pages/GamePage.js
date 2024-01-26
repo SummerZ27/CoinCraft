@@ -16,13 +16,11 @@ const GamePage = ({ userName }) => {
     setInputText(event.target.value);
   };
   const handleSubmit = () => {
-    // Do something with the input text, e.g., send it to a server
     console.log("Submitted:", inputText);
-    setTextBox("Game Starts");
-    // You can add more logic here based on your use case
   };
   const startGameButton = () => {
     console.log("Game Starts");
+    setTextBox("Game Starts");
   };
 
   return (
