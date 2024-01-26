@@ -39,6 +39,22 @@ router.post("/initsocket", (req, res) => {
   res.send({});
 });
 
+router.post("/mydescription", (req, res) => {
+  // Check if the user is logged in
+  if (!req.user) {
+    return res.status(401).send({ error: "User not logged in" });
+  }
+  const userId = req.user._id;
+
+  User.findByIdAndUpdate(userId, { description: req.body.description }, (err, user) => {
+    if (err) {
+      console.error("Error updating user description:", err);
+      return res.status(500).send({ error: "Internal Server Error" });
+    }
+    res.send({ success: true });
+  });
+});
+
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
@@ -49,23 +65,4 @@ router.all("*", (req, res) => {
   res.status(404).send({ msg: "API route not found" });
 });
 
-router.get("/GamePage", (req, res) => {
-  res.send(data.gamepage);
-});
-
-router.post("/GamePage", (req, res) => {
-  const newPrompt = {
-    question: req.body.content,
-  };
-  data.prompts.push(newPrompt);
-  res.send(newPrompt);
-});
 module.exports = router;
-
-const data = {
-  prompts: [
-    {
-      question: "hello",
-    },
-  ],
-};

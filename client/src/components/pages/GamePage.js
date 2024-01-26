@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./GamePage.css";
 import background_photo from "../../public/gameroom_background.png";
 import player1 from "../../public/players.png";
@@ -12,19 +12,52 @@ const GamePage = ({ userName }) => {
   console.log(userName);
   const [inputText, setInputText] = useState("");
   const [textBox, setTextBox] = useState("");
+  const [descriptionSubmitted, setDescriptionSubmitted] = useState(false);
+
   const handleInputChange = (event) => {
     setInputText(event.target.value);
   };
-  const handleSubmit = () => {
-    console.log("Submitted:", inputText);
+
+  const descriptionSubmit = () => {
+    setDescriptionSubmitted(true);
+    setTextBox("Your description: " + inputText);
+    // Send input text to 'api/mydescription'
+    fetch("api/mydescription", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ description: inputText }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Description submitted:", data);
+        // Add additional logic if needed
+      })
+      .catch((error) => {
+        console.error("Error submitting description:", error);
+        // Handle error
+      });
   };
+
   const startGameButton = () => {
     setTextBox("Game Starts");
-    const [word1, word2] = getRandomWord();
-    console.log(word1);
+    const [word, spy_word] = getRandomWord();
+    const wordsArray = [word, word, word, spy_word];
+    const shuffledWords = wordsArray.sort(() => Math.random() - 0.5);
+    const [myWord, wordA, wordB, wordC] = shuffledWords;
+
     setTimeout(() => {
-      setTextBox(word1 + " " + word2);
-    }, 1200); // 2000 milliseconds (2 seconds) delay
+      setTextBox("Your Word is: " + myWord);
+    }, 1200); // 1200 milliseconds (1.2 seconds) delay
+
+    const roundOneDelay = 2800;
+    setTimeout(() => {
+      setTextBox("Round One. Enter your description in the textbox below.");
+    }, roundOneDelay);
+
+    if (descriptionSubmitted) {
+    }
   };
 
   function getRandomWord() {
@@ -51,10 +84,10 @@ const GamePage = ({ userName }) => {
     >
       <div className="textbox">{textBox}</div>
       <button onClick={startGameButton}>Start Game</button>
-      <img src={player1} className="player1" />;
-      <img src={player2} className="player2" />;
-      <img src={player3} className="player3" />;
-      <img src={player4} className="player4" />;
+      <img src={player1} className="player1" alt="Player 1" />
+      <img src={player2} className="player2" alt="Player 2" />
+      <img src={player3} className="player3" alt="Player 3" />
+      <img src={player4} className="player4" alt="Player 4" />
       <div className="div_sizer">
         <canvas id="canvas" width="100" height="100"></canvas>
         <div className="ui-controls">
@@ -69,7 +102,7 @@ const GamePage = ({ userName }) => {
           onChange={handleInputChange}
           placeholder="Describe your phrase..."
         />
-        <button onClick={handleSubmit}>Submit</button>
+        <button onClick={descriptionSubmit}>Submit</button>
       </div>
     </div>
   );
