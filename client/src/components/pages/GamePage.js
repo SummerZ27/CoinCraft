@@ -19,9 +19,24 @@ const GamePage = ({ userName }) => {
     console.log("Submitted:", inputText);
   };
   const startGameButton = () => {
-    console.log("Game Starts");
     setTextBox("Game Starts");
+    const [word1, word2] = getRandomWord();
+    console.log(word1);
+    setTimeout(() => {
+      setTextBox(word1 + " " + word2);
+    }, 1200); // 2000 milliseconds (2 seconds) delay
   };
+
+  function getRandomWord() {
+    const words = ["apple", "moon", "ocean", "car", "violin", "bike", "apartment", "cat"];
+    const spy_words = ["orange", "sun", "river", "truck", "cello", "scooter", "house", "dog"];
+    if (!Array.isArray(words) || words.length === 0) {
+      throw new Error("The word list must be a non-empty array.");
+    }
+
+    const randomIndex = Math.floor(Math.random() * words.length);
+    return [words[randomIndex], spy_words[randomIndex]];
+  }
 
   return (
     <div
