@@ -32,11 +32,9 @@ const GamePage = ({ userName }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Description submitted:", data);
-        // Add additional logic if needed
       })
       .catch((error) => {
         console.error("Error submitting description:", error);
-        // Handle error
       });
   };
 
@@ -45,7 +43,38 @@ const GamePage = ({ userName }) => {
     const [word, spy_word] = getRandomWord();
     const wordsArray = [word, word, word, spy_word];
     const shuffledWords = wordsArray.sort(() => Math.random() - 0.5);
-    const [myWord, wordA, wordB, wordC] = shuffledWords;
+    const [myWord, word1, word2, word3] = shuffledWords;
+    fetch("api/myWord", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ word: myWord }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("myWord submitted:", data);
+      })
+      .catch((error) => {
+        console.error("Error submitting myWord:", error);
+      });
+
+    [word1, word2, word3].forEach((word, index) => {
+      fetch(`api/word${index + 1}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ word }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(`word${index + 1} submitted:`, data);
+        })
+        .catch((error) => {
+          console.error(`Error submitting word${index + 1}:`, error);
+        });
+    });
 
     setTimeout(() => {
       setTextBox("Your Word is: " + myWord);
@@ -57,6 +86,7 @@ const GamePage = ({ userName }) => {
     }, roundOneDelay);
 
     if (descriptionSubmitted) {
+      setTextBox("Description submitted");
     }
   };
 

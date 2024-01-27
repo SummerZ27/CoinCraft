@@ -55,6 +55,22 @@ router.post("/mydescription", (req, res) => {
   });
 });
 
+router.post("/myWord", (req, res) => {
+  res.send({ success: true });
+});
+
+router.post("/word1", (req, res) => {
+  res.send({ success: true });
+});
+
+router.post("/word2", (req, res) => {
+  res.send({ success: true });
+});
+
+router.post("/word3", (req, res) => {
+  res.send({ success: true });
+});
+
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
