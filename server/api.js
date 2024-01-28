@@ -11,6 +11,7 @@ const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
+const Document = require("./models/document");
 
 // import authentication library
 const auth = require("./auth");
@@ -20,6 +21,7 @@ const router = express.Router();
 
 //initialize socket
 const socketManager = require("./server-socket");
+const ragManager = require("./rag");
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -69,6 +71,48 @@ router.post("/word2", (req, res) => {
 
 router.post("/word3", (req, res) => {
   res.send({ success: true });
+});
+
+router.get("/isrunnable", (req, res) => {
+  res.send({ isrunnable: ragManager.isRunnable() });
+});
+
+router.post("/document", (req, res) => {
+  const newDocument = new Document({
+    content: req.body.content,
+  });
+
+  const addDocument = async (document) => {
+    try {
+      await document.save();
+      await ragManager.addDocument(document);
+      res.send(document);
+    } catch (error) {
+      console.log("error:", error);
+      res.status(500);
+      res.send({});
+    }
+  };
+
+  addDocument(newDocument);
+});
+
+router.get("/document", (req, res) => {
+  Document.find({}).then((documents) => res.send(documents));
+});
+
+router.post("/query", (req, res) => {
+  const makeQuery = async () => {
+    try {
+      const queryresponse = await ragManager.retrievalAugmentedGeneration(req.body.query);
+      res.send({ queryresponse });
+    } catch (error) {
+      console.log("error:", error);
+      res.status(500);
+      res.send({});
+    }
+  };
+  makeQuery();
 });
 
 // |------------------------------|
