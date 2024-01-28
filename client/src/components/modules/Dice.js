@@ -16,7 +16,6 @@ const DiceRoller = () => {
     notchRadius: 0.12,
     notchDepth: 0.1,
   };
-
   useEffect(() => {
     initPhysics();
     initScene();

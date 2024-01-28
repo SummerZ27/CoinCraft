@@ -55,7 +55,7 @@ const Skeleton = ({ handleLogin, handleLogout, userId }) => {
             &nbsp;AI Spyfall&nbsp;
           </h1>
         </div>
-        <h2 className="game_Home_Subtitle"> Uncover the spy in this thrilling, deceptive game! </h2>
+        <h2 className="game_Home_Subtitle"> Uncover Spies in Thrilling Game! </h2>
         <div className="container">
           <button onClick={redirectToGamePage} className="getStartedButton">
             Go to GamePage
