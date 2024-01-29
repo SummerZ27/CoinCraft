@@ -19,7 +19,7 @@ const GamePage = ({ userName }) => {
   const changeTurn = () => {
     clickCount++;
     console.log(clickCount);
-    if (clickCount % 4 === 0) {
+    if (clickCount % 4 === 2) {
       var player1Glow = document.getElementById("player1");
       player1Glow.classList.add("changeTurnGlow1");
       var player2Glow = document.getElementById("player2");
@@ -28,8 +28,10 @@ const GamePage = ({ userName }) => {
       player3Glow.classList.remove("changeTurnGlow3");
       var player4Glow = document.getElementById("player4");
       player4Glow.classList.remove("changeTurnGlow4");
+      var userInput = document.getElementById("user-input");
+      userInput.classList.remove("user-input-effect");
     }
-    if (clickCount % 4 === 1) {
+    if (clickCount % 4 === 3) {
       var player1Glow = document.getElementById("player1");
       player1Glow.classList.remove("changeTurnGlow1");
       var player2Glow = document.getElementById("player2");
@@ -38,8 +40,10 @@ const GamePage = ({ userName }) => {
       player3Glow.classList.remove("changeTurnGlow3");
       var player4Glow = document.getElementById("player4");
       player4Glow.classList.remove("changeTurnGlow4");
+      var userInput = document.getElementById("user-input");
+      userInput.classList.remove("user-input-effect");
     }
-    if (clickCount % 4 === 2) {
+    if (clickCount % 4 === 0) {
       var player1Glow = document.getElementById("player1");
       player1Glow.classList.remove("changeTurnGlow1");
       var player2Glow = document.getElementById("player2");
@@ -48,8 +52,10 @@ const GamePage = ({ userName }) => {
       player3Glow.classList.add("changeTurnGlow3");
       var player4Glow = document.getElementById("player4");
       player4Glow.classList.remove("changeTurnGlow4");
+      var userInput = document.getElementById("user-input");
+      userInput.classList.remove("user-input-effect");
     }
-    if (clickCount % 4 === 3) {
+    if (clickCount % 4 === 1) {
       var player1Glow = document.getElementById("player1");
       player1Glow.classList.remove("changeTurnGlow1");
       var player2Glow = document.getElementById("player2");
@@ -58,6 +64,8 @@ const GamePage = ({ userName }) => {
       player3Glow.classList.remove("changeTurnGlow3");
       var player4Glow = document.getElementById("player4");
       player4Glow.classList.add("changeTurnGlow4");
+      var userInput = document.getElementById("user-input");
+      userInput.classList.add("user-input-effect");
     }
   };
   console.log(userName);
@@ -90,6 +98,8 @@ const GamePage = ({ userName }) => {
   };
 
   const startGameButton = () => {
+    var userInput = document.getElementById("user-input");
+    userInput.classList.add("user-input-effect");
     var startGlowGreen = document.getElementById("start");
     startGlowGreen.classList.toggle("start_bright");
     setTextBox("Game Starts");
@@ -182,7 +192,7 @@ const GamePage = ({ userName }) => {
         </div>
       </div>
       <DiceRoller />
-      <div className="user-input">
+      <div className="user-input" id="user-input">
         <input
           type="text"
           value={inputText}

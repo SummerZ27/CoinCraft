@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/Summer/Desktop/CoinCraft/server/venv"
+VIRTUAL_ENV="/Users/sam/Desktop/CoinCraft/server/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

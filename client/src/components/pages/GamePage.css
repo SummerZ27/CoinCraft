@@ -1,5 +1,6 @@
 /* Fill me in :) */
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Rubik+Bubbles&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Bubblegum+Sans&family=Encode+Sans+Condensed:wght@700&display=swap");
 
 body {
   padding: 0px;
@@ -62,6 +63,7 @@ body {
   position: absolute;
   top: 440px;
   right: 680px;
+  font-family: "Audiowide", sans-serif;
 }
 .welcomemessage {
   position: absolute;
@@ -88,6 +90,7 @@ body {
 
 .user-input {
   position: absolute;
+  opacity: 0%;
   bottom: 5px;
   width: 20%;
   background-color: white;
@@ -97,22 +100,33 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  border-radius: 20px;
 }
-
+.user-input:hover {
+  opacity: 95%;
+}
+.user-input-effect {
+  opacity: 95%;
+}
 .user-input input {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
+  font-family: "Audiowide", sans-serif;
 }
 
 .user-input button {
   width: 40%;
   height: 60%;
   padding: 10px;
-  background-color: #4caf50;
+  background-color: #0f52ba;
+  opacity: 100%;
   color: white;
+  font-size: 17px;
   border: none;
   cursor: pointer;
+  border-radius: 10px;
+  font-family: "Audiowide", sans-serif;
 }
 
 #canvas {
@@ -142,8 +156,11 @@ body {
   padding: 10px;
   border-radius: 10px;
   font-size: 20px;
+  font-family: "Audiowide", sans-serif;
 }
-
+.roll-btn {
+  font-family: "Audiowide", sans-serif;
+}
 .roll-btn:hover {
   transform: translateY(-10px);
   border: 5px solid #a9423f;
@@ -153,13 +170,17 @@ body {
   position: relative;
   top: 40px;
   left: 10px;
-  height: 50px;
+  height: 60px;
   width: 120px;
   font-size: 20px;
-  opacity: 90%;
+  opacity: 50%;
+  background-color: #0f52ba;
+  color: white;
+  font-family: "Audiowide", sans-serif;
 }
 .start:hover {
-  transform: translateY(-10px);
+  opacity: 90%;
+  filter: drop-shadow(0 0 10px white) drop-shadow(0 0 10px white);
 }
 .start_bright {
   filter: drop-shadow(0 0 10px green) drop-shadow(0 0 10px green);
@@ -170,13 +191,17 @@ body {
   position: relative;
   top: 710px;
   left: 1190px;
-  height: 50px;
+  height: 60px;
   width: 120px;
   font-size: 20px;
-  opacity: 90%;
+  opacity: 50%;
+  background-color: #0f52ba;
+  color: white;
+  font-family: "Audiowide", sans-serif;
 }
 .changeTurn:hover {
-  transform: translateY(-10px);
+  opacity: 90%;
+  filter: drop-shadow(0 0 10px white) drop-shadow(0 0 10px white);
 }
 .changeTurnGlow3 {
   filter: drop-shadow(0 0 20px red) drop-shadow(0 0 50px red);

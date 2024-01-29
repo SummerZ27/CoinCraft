@@ -2667,7 +2667,7 @@ chokidar@^3.4.0, chokidar@^3.5.2, chokidar@^3.5.3:
 
 chromadb@^1.8.1:
   version "1.8.1"
-  resolved "https://registry.npmmirror.com/chromadb/-/chromadb-1.8.1.tgz"
+  resolved "https://registry.npmjs.org/chromadb/-/chromadb-1.8.1.tgz"
   integrity sha512-NpbYydbg4Uqt/9BXKgkZXn0fqpsh2Z1yjhkhKH+rcHMoq0pwI18BFSU2QU7Fk/ZypwGefW2AvqyE/3ZJIgy4QA==
   dependencies:
     cliui "^8.0.1"
