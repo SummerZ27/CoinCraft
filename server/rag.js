@@ -1,6 +1,5 @@
 //to activate: source venv/bin/activate
 //chroma run
-
 require("dotenv").config();
 const Document = require("./models/document");
 
@@ -26,36 +25,8 @@ const action_describe = "Now it's your turn. Only generate your description of t
 const action_vote =
   "Now vote someone out. Only generate the name of your chosen player. Select one of A,B,C,D.";
 
-// check whether the api key is valid.
-// this is only called on server start, so it does not waste too many resources (and will present expensive server crashes when api keys expire)
-let hasapikey = false;
-const validateAPIKey = async () => {
-  try {
-    await anyscale.chat.completions.create({
-      model: "meta-llama/Llama-2-7b-chat-hf",
-      messages: [{ role: "system", content: "" }],
-    });
-    hasapikey = true;
-    return hasapikey;
-  } catch {
-    console.log("validate api key failed");
-    return hasapikey;
-  }
-};
-
-const isRunnable = () => hasapikey && collection !== null;
-
-// embedding helper function
-const generateEmbedding = async (document) => {
-  const embedding = await anyscale.embeddings.create({
-    model: EMBEDDING_MODEL,
-    input: document,
-  });
-  return embedding.data[0].embedding;
-};
-
 // chat completion helper function
-const chatCompletion = async (query) => {
+const PlayerAtypes = async (query) => {
   const prompt = {
     model: MODEL,
     messages: [
@@ -68,8 +39,25 @@ const chatCompletion = async (query) => {
         content: `${action_vote}`,
       },
     ],
-    // temperature controls the variance in the llms responses
-    // higher temperature = more variance
+    temperature: 0.7,
+  };
+  const completion = await anyscale.chat.completions.create(prompt);
+  return completion.choices[0].message.content;
+};
+
+const PlayerBtypes = async (query, phrase) => {
+  const prompt = {
+    model: MODEL,
+    messages: [
+      {
+        role: "system",
+        content: `${game_prompt} Your phrase is '${phrase}'. Player A says: '${query}.'`,
+      },
+      {
+        role: "user",
+        content: `${action_describe}`,
+      },
+    ],
     temperature: 0.7,
   };
   const completion = await anyscale.chat.completions.create(prompt);
@@ -113,74 +101,11 @@ const syncDBs = async () => {
   console.log("number of documents", await collection.count());
 };
 
-const initCollection = async () => {
-  await validateAPIKey();
-  if (!hasapikey) return;
-  try {
-    collection = await client.getOrCreateCollection({
-      name: COLLECTION_NAME,
-    });
-    // initialize collection embeddings with corpus
-    // in production, this function should not run that often, so it is OK to resync the two dbs here
-    await syncDBs();
-    console.log("finished initializing chroma collection");
-  } catch (error) {
-    console.log("chromadb not running");
-  }
-};
-
-// This is an async function => we don't know that the collection is
-// initialized before someone else runs functions that depend on the
-// collection, so we could get null pointer errors when collection = null
-// before initCollection() has finished. That's probably okay, but if we
-// see errors, it's worth keeping in mind.
-initCollection();
-
-// retrieving context helper function
-const NUM_DOCUMENTS = 1;
-const retrieveContext = async (query, k) => {
-  const queryEmbedding = await generateEmbedding(query);
-  const results = await collection.query({
-    queryEmbeddings: [queryEmbedding],
-    nResults: k,
-  });
-  return results.documents;
-};
-
-// RAG
-const retrievalAugmentedGeneration = async (query) => {
-  //const context = await retrieveContext(query, NUM_DOCUMENTS);
-  const llmResponse = await chatCompletion(query);
+const retrievalAugmentedGeneration = async (query, phrase) => {
+  const llmResponse = await PlayerBtypes(query, phrase);
   return llmResponse;
 };
 
-// add a document to collection
-const addDocument = async (document) => {
-  const embedding = await generateEmbedding(document.content);
-  await collection.add({
-    ids: [document._id.toString()],
-    embeddings: [embedding],
-    documents: [document.content],
-  });
-};
-
-// update a document in collection
-const updateDocument = async (document) => {
-  await collection.delete({ ids: [document._id.toString()] });
-  await addDocument(document);
-};
-
-// delete a document in collection
-const deleteDocument = async (id) => {
-  await collection.delete({
-    ids: [id.toString()],
-  });
-};
-
 module.exports = {
-  isRunnable: isRunnable,
-  addDocument: addDocument,
-  updateDocument: updateDocument,
-  deleteDocument: deleteDocument,
   retrievalAugmentedGeneration: retrievalAugmentedGeneration,
 };

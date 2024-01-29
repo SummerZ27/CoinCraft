@@ -7,6 +7,9 @@ import player3 from "../../public/players.png";
 import player4 from "../../public/players.png";
 import "../modules/Dice.css";
 import DiceRoller from "../modules/Dice.js";
+import changeTurn from "../modules/changeturn.js";
+import getRandomWord from "../modules/getword.js";
+import { get, post } from "../../utilities";
 
 const GamePage = ({ userName }) => {
   let rollingState = {
@@ -15,88 +18,31 @@ const GamePage = ({ userName }) => {
   const roll = () => {
     rollingState.isRolling = true;
   };
-  let clickCount = 0;
-  const changeTurn = () => {
-    clickCount++;
-    console.log(clickCount);
-    if (clickCount % 4 === 2) {
-      var player1Glow = document.getElementById("player1");
-      player1Glow.classList.add("changeTurnGlow1");
-      var player2Glow = document.getElementById("player2");
-      player2Glow.classList.remove("changeTurnGlow2");
-      var player3Glow = document.getElementById("player3");
-      player3Glow.classList.remove("changeTurnGlow3");
-      var player4Glow = document.getElementById("player4");
-      player4Glow.classList.remove("changeTurnGlow4");
-      var userInput = document.getElementById("user-input");
-      userInput.classList.remove("user-input-effect");
-    }
-    if (clickCount % 4 === 3) {
-      var player1Glow = document.getElementById("player1");
-      player1Glow.classList.remove("changeTurnGlow1");
-      var player2Glow = document.getElementById("player2");
-      player2Glow.classList.add("changeTurnGlow2");
-      var player3Glow = document.getElementById("player3");
-      player3Glow.classList.remove("changeTurnGlow3");
-      var player4Glow = document.getElementById("player4");
-      player4Glow.classList.remove("changeTurnGlow4");
-      var userInput = document.getElementById("user-input");
-      userInput.classList.remove("user-input-effect");
-    }
-    if (clickCount % 4 === 0) {
-      var player1Glow = document.getElementById("player1");
-      player1Glow.classList.remove("changeTurnGlow1");
-      var player2Glow = document.getElementById("player2");
-      player2Glow.classList.remove("changeTurnGlow2");
-      var player3Glow = document.getElementById("player3");
-      player3Glow.classList.add("changeTurnGlow3");
-      var player4Glow = document.getElementById("player4");
-      player4Glow.classList.remove("changeTurnGlow4");
-      var userInput = document.getElementById("user-input");
-      userInput.classList.remove("user-input-effect");
-    }
-    if (clickCount % 4 === 1) {
-      var player1Glow = document.getElementById("player1");
-      player1Glow.classList.remove("changeTurnGlow1");
-      var player2Glow = document.getElementById("player2");
-      player2Glow.classList.remove("changeTurnGlow2");
-      var player3Glow = document.getElementById("player3");
-      player3Glow.classList.remove("changeTurnGlow3");
-      var player4Glow = document.getElementById("player4");
-      player4Glow.classList.add("changeTurnGlow4");
-      var userInput = document.getElementById("user-input");
-      userInput.classList.add("user-input-effect");
-    }
-  };
   console.log(userName);
   const [inputText, setInputText] = useState("");
   const [textBox, setTextBox] = useState("");
   const [descriptionSubmitted, setDescriptionSubmitted] = useState(false);
+  const [myWord, setMyWord] = useState(" ");
+
+  const makeQuery = () => {
+    setTextBox("AI Player A typing...");
+    post("/api/query", { query: inputText, phrase: myWord })
+      .then((res) => {
+        setTextBox(res.queryresponse);
+      })
+      .catch(() => {
+        setTextBox("error during query. check your server logs!");
+        setTimeout(() => {
+          setResponse("");
+        }, 2000);
+      });
+  };
 
   const handleInputChange = (event) => {
     setInputText(event.target.value);
   };
 
-  const descriptionSubmit = () => {
-    setDescriptionSubmitted(true);
-    setTextBox("Your description: " + inputText);
-    // Send input text to 'api/mydescription'
-    fetch("api/mydescription", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ description: inputText }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Description submitted:", data);
-      })
-      .catch((error) => {
-        console.error("Error submitting description:", error);
-      });
-  };
-
+  //start game
   const startGameButton = () => {
     var userInput = document.getElementById("user-input");
     userInput.classList.add("user-input-effect");
@@ -107,6 +53,7 @@ const GamePage = ({ userName }) => {
     const wordsArray = [word, word, word, spy_word];
     const shuffledWords = wordsArray.sort(() => Math.random() - 0.5);
     const [myWord, word1, word2, word3] = shuffledWords;
+    setMyWord(myWord);
     fetch("api/myWord", {
       method: "POST",
       headers: {
@@ -147,22 +94,7 @@ const GamePage = ({ userName }) => {
     setTimeout(() => {
       setTextBox("Round One. Enter your description in the textbox below.");
     }, roundOneDelay);
-
-    if (descriptionSubmitted) {
-      setTextBox("Description submitted");
-    }
   };
-
-  function getRandomWord() {
-    const words = ["apple", "moon", "ocean", "car", "violin", "bike", "apartment", "cat"];
-    const spy_words = ["orange", "sun", "river", "truck", "cello", "scooter", "house", "dog"];
-    if (!Array.isArray(words) || words.length === 0) {
-      throw new Error("The word list must be a non-empty array.");
-    }
-
-    const randomIndex = Math.floor(Math.random() * words.length);
-    return [words[randomIndex], spy_words[randomIndex]];
-  }
 
   return (
     <div
@@ -199,7 +131,7 @@ const GamePage = ({ userName }) => {
           onChange={handleInputChange}
           placeholder="Describe your phrase..."
         />
-        <button onClick={descriptionSubmit}>Submit</button>
+        <button onClick={makeQuery}>Submit</button>
       </div>
       <button onClick={changeTurn} className="changeTurn" id="changeTurn">
         Change Turn

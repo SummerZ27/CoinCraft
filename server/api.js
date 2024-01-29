@@ -41,22 +41,6 @@ router.post("/initsocket", (req, res) => {
   res.send({});
 });
 
-router.post("/mydescription", (req, res) => {
-  // Check if the user is logged in
-  if (!req.user) {
-    return res.status(401).send({ error: "User not logged in" });
-  }
-  const userId = req.user._id;
-
-  User.findByIdAndUpdate(userId, { description: req.body.description }, (err, user) => {
-    if (err) {
-      console.error("Error updating user description:", err);
-      return res.status(500).send({ error: "Internal Server Error" });
-    }
-    res.send({ success: true });
-  });
-});
-
 router.post("/myWord", (req, res) => {
   res.send({ success: true });
 });
@@ -104,7 +88,10 @@ router.get("/document", (req, res) => {
 router.post("/query", (req, res) => {
   const makeQuery = async () => {
     try {
-      const queryresponse = await ragManager.retrievalAugmentedGeneration(req.body.query);
+      const queryresponse = await ragManager.retrievalAugmentedGeneration(
+        req.body.query,
+        req.body.phrase
+      );
       res.send({ queryresponse });
     } catch (error) {
       console.log("error:", error);
