@@ -42,16 +42,6 @@ const LLM = (props) => {
   const [response, setResponse] = useState("");
   const [runnable, setRunnable] = useState(false);
 
-  useEffect(() => {
-    get("/api/isrunnable").then((res) => {
-      if (res.isrunnable) {
-        setRunnable(true);
-        get("/api/document").then((corpus) => {});
-      }
-      setLoading(false);
-    });
-  }, []);
-
   const makeQuery = (q) => {
     setResponse("querying the model...");
     post("/api/query", { query: q })
@@ -68,13 +58,6 @@ const LLM = (props) => {
 
   if (!props.userId) {
     return <div>Log in before chatting with the LLM</div>;
-  }
-  if (!runnable) {
-    return (
-      <>
-        <div>error detected</div>
-      </>
-    );
   }
   return (
     <>

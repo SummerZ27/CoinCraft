@@ -61,7 +61,11 @@ const chatCompletion = async (query) => {
     messages: [
       {
         role: "system",
-        content: `${game_prompt} Your phrase is 'plane'. Player A says: '${query}. 'Player B says: 'This is a vehicle used to transport people and goods over long distances.' Player C says:'This is a mode of transportation commonly seen at airports.' Player D says:'This is a flying vehicle that provides a means of air travel.'${action_vote}`,
+        content: `${game_prompt} Your phrase is 'plane'. Player A says: '${query}. 'Player B says: 'This is a vehicle used to transport people and goods over long distances.' Player C says:'This is a mode of transportation commonly seen at airports.' Player D says:'This is a flying vehicle that provides a means of air travel.'`,
+      },
+      {
+        role: "user",
+        content: `${action_vote}`,
       },
     ],
     // temperature controls the variance in the llms responses
