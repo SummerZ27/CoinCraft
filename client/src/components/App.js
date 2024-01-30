@@ -8,7 +8,6 @@ import Skeleton from "./pages/Skeleton.js";
 import GamePage from "./pages/GamePage.js";
 import LoginPage from "./pages/LoginPage.js";
 import Rule from "./pages/rules.js";
-import LLM from "./pages/query.js";
 
 import "../utilities.css";
 
@@ -74,7 +73,6 @@ const App = () => {
       <Route path="/gamepage" element={<GamePage userName={userId} />} />
       <Route path="/rules" element={<Rule />} />
       <Route path="/loginpage" element={<LoginPage handleLogin={handleLogin2} />} />
-      <Route path="/llm" element={<LLM userId={userId} />} />
     </Routes>
   );
 };

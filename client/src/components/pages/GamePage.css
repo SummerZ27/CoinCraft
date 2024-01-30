@@ -187,6 +187,57 @@ body {
   opacity: 50%;
 }
 
+.voteA {
+  position: absolute;
+  top: 150px;
+  left: 10px;
+  height: 30px;
+  width: 120px;
+  font-size: 20px;
+  opacity: 50%;
+  background-color: #0f52ba;
+  color: white;
+  font-family: "Audiowide", sans-serif;
+}
+.voteA:hover {
+  opacity: 90%;
+  filter: drop-shadow(0 0 10px white) drop-shadow(0 0 10px white);
+}
+
+.voteB {
+  position: absolute;
+  top: 190px;
+  left: 10px;
+  height: 30px;
+  width: 120px;
+  font-size: 20px;
+  opacity: 50%;
+  background-color: #0f52ba;
+  color: white;
+  font-family: "Audiowide", sans-serif;
+}
+.voteB:hover {
+  opacity: 90%;
+  filter: drop-shadow(0 0 10px white) drop-shadow(0 0 10px white);
+}
+
+.voteC {
+  position: absolute;
+  top: 230px;
+  left: 10px;
+  height: 30px;
+  width: 120px;
+  font-size: 20px;
+  opacity: 50%;
+  background-color: #0f52ba;
+  color: white;
+  font-family: "Audiowide", sans-serif;
+}
+.voteC:hover {
+  opacity: 90%;
+  filter: drop-shadow(0 0 10px white) drop-shadow(0 0 10px white);
+}
+
 .changeTurn {
   position: relative;
   top: 110px;

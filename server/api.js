@@ -41,55 +41,123 @@ router.post("/initsocket", (req, res) => {
   res.send({});
 });
 
-router.post("/myWord", (req, res) => {
-  res.send({ success: true });
-});
+// router.post("/myWord", (req, res) => {
+//   res.send({ success: true });
+// });
 
-router.post("/word1", (req, res) => {
-  res.send({ success: true });
-});
+// router.post("/word1", (req, res) => {
+//   res.send({ success: true });
+// });
 
-router.post("/word2", (req, res) => {
-  res.send({ success: true });
-});
+// router.post("/word2", (req, res) => {
+//   res.send({ success: true });
+// });
 
-router.post("/word3", (req, res) => {
-  res.send({ success: true });
-});
+// router.post("/word3", (req, res) => {
+//   res.send({ success: true });
+// });
 
 router.get("/isrunnable", (req, res) => {
   res.send({ isrunnable: ragManager.isRunnable() });
 });
 
-router.post("/document", (req, res) => {
-  const newDocument = new Document({
-    content: req.body.content,
-  });
-
-  const addDocument = async (document) => {
+router.post("/queryA", (req, res) => {
+  const makeQuery = async () => {
     try {
-      await document.save();
-      await ragManager.addDocument(document);
-      res.send(document);
+      const queryresponse = await ragManager.PlayerAtypes(req.body.descriptionD, req.body.phrase);
+      res.send({ queryresponse });
     } catch (error) {
       console.log("error:", error);
       res.status(500);
       res.send({});
     }
   };
-
-  addDocument(newDocument);
+  makeQuery();
 });
 
-router.get("/document", (req, res) => {
-  Document.find({}).then((documents) => res.send(documents));
-});
-
-router.post("/query", (req, res) => {
+router.post("/queryB", (req, res) => {
   const makeQuery = async () => {
     try {
-      const queryresponse = await ragManager.retrievalAugmentedGeneration(
-        req.body.query,
+      const queryresponse = await ragManager.PlayerBtypes(
+        req.body.descriptionD,
+        req.body.descriptionA,
+        req.body.phrase
+      );
+      res.send({ queryresponse });
+    } catch (error) {
+      console.log("error:", error);
+      res.status(500);
+      res.send({});
+    }
+  };
+  makeQuery();
+});
+router.post("/queryC", (req, res) => {
+  const makeQuery = async () => {
+    try {
+      const queryresponse = await ragManager.PlayerBtypes(
+        req.body.descriptionD,
+        req.body.descriptionA,
+        req.body.descriptionB,
+        req.body.phrase
+      );
+      res.send({ queryresponse });
+    } catch (error) {
+      console.log("error:", error);
+      res.status(500);
+      res.send({});
+    }
+  };
+  makeQuery();
+});
+
+router.post("/voteA", (req, res) => {
+  const makeQuery = async () => {
+    try {
+      const queryresponse = await ragManager.PlayerAvotes(
+        req.body.descriptionD,
+        req.body.descriptionA,
+        req.body.descriptionB,
+        req.body.descriptionC,
+        req.body.phrase
+      );
+      res.send({ queryresponse });
+    } catch (error) {
+      console.log("error:", error);
+      res.status(500);
+      res.send({});
+    }
+  };
+  makeQuery();
+});
+router.post("/voteB", (req, res) => {
+  const makeQuery = async () => {
+    try {
+      const queryresponse = await ragManager.PlayerBvotes(
+        req.body.descriptionD,
+        req.body.descriptionA,
+        req.body.descriptionB,
+        req.body.descriptionC,
+        req.body.phrase
+      );
+      res.send({ queryresponse });
+    } catch (error) {
+      console.log("error:", error);
+      res.status(500);
+      res.send({});
+    }
+  };
+  makeQuery();
+});
+
+router.post("/voteC", (req, res) => {
+  const makeQuery = async () => {
+    try {
+      const queryresponse = await ragManager.PlayerCvotes(
+        req.body.descriptionD,
+        req.body.descriptionA,
+        req.body.descriptionB,
+        req.body.descriptionC,
         req.body.phrase
       );
       res.send({ queryresponse });
