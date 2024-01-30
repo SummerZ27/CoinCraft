@@ -17,34 +17,48 @@ const GamePage = ({ userName }) => {
   const [Word1, setWord1] = useState(" ");
   const [Word2, setWord2] = useState(" ");
   const [Word3, setWord3] = useState(" ");
-  const [myVote, setMyVote] = useState(" ");
   const [responseA, setResponseA] = useState(" ");
   const [responseB, setResponseB] = useState(" ");
   const [responseC, setResponseC] = useState(" ");
-  const [votesforA, setVotesforA] = useState(0);
-  const [votesforB, setVotesforB] = useState(0);
-  const [votesforC, setVotesforC] = useState(0);
-  const [votesforD, setVotesforD] = useState(0);
-
+  let A = 0;
+  let B = 0;
+  let C = 0;
+  let D = 0;
+  let spy;
   const countVote = (response) => {
     console.log(response);
 
     if (response.includes("A")) {
-      const prevVotesforA = votesforA;
-      setVotesforA(prevVotesforA + 1);
+      A++;
     }
     if (response.includes("B")) {
-      const prevVotesforB = votesforB;
-      setVotesforB(prevVotesforB + 1);
+      B++;
     }
     if (response.includes("C")) {
-      const prevVotesforC = votesforC;
-      setVotesforC(prevVotesforC + 1);
+      C++;
     }
     if (response.includes("D")) {
-      const prevVotesforD = votesforD;
-      setVotesforD(prevVotesforD + 1);
+      D++;
     }
+  };
+
+  const findspy = (myWord, word1, word2, word3, spy_word) => {
+    let spy1;
+
+    if (myWord === spy_word) {
+      spy1 = "D";
+    }
+    if (word1 === spy_word) {
+      spy1 = "A";
+    }
+    if (word2 === spy_word) {
+      spy1 = "B";
+    }
+    if (word3 === spy_word) {
+      spy1 = "C";
+    }
+
+    return spy1;
   };
 
   let rollingState = {
@@ -88,7 +102,7 @@ const GamePage = ({ userName }) => {
         .catch(() => {
           setTextBox("error during query. check your server logs!");
         });
-    }, 2000); // 1200 milliseconds (1.2 seconds) delay
+    }, 2000);
   };
 
   const makeQuery3 = () => {
@@ -121,7 +135,6 @@ const GamePage = ({ userName }) => {
     }, 3000); // 1200 milliseconds (1.2 seconds) delay
   };
   const voteA = () => {
-    setMyVote("A");
     setTimeout(() => {
       setTextBox("You voted A");
       countVote("A");
@@ -129,7 +142,6 @@ const GamePage = ({ userName }) => {
     }, 800);
   };
   const voteB = () => {
-    setMyVote("B");
     setTimeout(() => {
       setTextBox("You voted B");
       countVote("B");
@@ -156,7 +168,7 @@ const GamePage = ({ userName }) => {
         phrase: Word1,
       })
         .then((res) => {
-          setTextBox("Player A votes: " + res.queryresponse.split("%")[1] + res.queryresponse);
+          setTextBox("Player A votes: " + res.queryresponse.split("%")[1]);
           countVote(res.queryresponse.split("%")[1]);
           vote2();
         })
@@ -177,14 +189,14 @@ const GamePage = ({ userName }) => {
         phrase: Word2,
       })
         .then((res) => {
-          setTextBox("Player B votes: " + res.queryresponse.split("%")[1] + res.queryresponse);
+          setTextBox("Player B votes: " + res.queryresponse.split("%")[1]);
           countVote(res.queryresponse.split("%")[1]);
           vote3();
         })
         .catch(() => {
           setTextBox("error during query. check your server logs!");
         });
-    }, 5000); // 1200 milliseconds (1.2 seconds) delay
+    }, 2000);
   };
   const vote3 = () => {
     setTimeout(() => {
@@ -198,24 +210,56 @@ const GamePage = ({ userName }) => {
         phrase: Word3,
       })
         .then((res) => {
-          setTextBox("Player C votes: " + res.queryresponse.split("%")[1] + res.queryresponse);
+          setTextBox("Player C votes: " + res.queryresponse.split("%")[1]);
           countVote(res.queryresponse.split("%")[1]);
           votingdecision();
         })
         .catch(() => {
           setTextBox("error during query. check your server logs!");
         });
-    }, 5000); // 1200 milliseconds (1.2 seconds) delay
+    }, 2000);
   };
   const votingdecision = () => {
     setTimeout(() => {
       setTextBox("Counting votes...");
-      const numbers = { votesforA, votesforB, votesforC, votesforD };
-      console.log(numbers);
-      const maxNumber = Math.max(votesforA, votesforB, votesforC, votesforD);
-      const variableWithMaxNumber = Object.keys(numbers).find((key) => numbers[key] === maxNumber);
-      return { maxNumber, variable: variableWithMaxNumber };
-    }, 1000); // 1200 milliseconds (1.2 seconds) delay
+      const numbers = { A, B, C, D };
+      const maxNumber = Math.max(A, B, C, D);
+      const variablesWithMaxNumber = Object.keys(numbers).filter(
+        (key) => numbers[key] === maxNumber
+      );
+
+      let selectedVariable;
+      if (variablesWithMaxNumber.length > 1) {
+        // There is a tie, randomly select one
+        selectedVariable =
+          variablesWithMaxNumber[Math.floor(Math.random() * variablesWithMaxNumber.length)];
+      } else {
+        // No tie, just use the single variable with the maximum number
+        selectedVariable = variablesWithMaxNumber[0];
+      }
+
+      setTextBox(` ${selectedVariable} is voted out`);
+
+      votingvalidate(selectedVariable);
+    }, 1000);
+  };
+
+  const votingvalidate = (voted) => {
+    setTimeout(() => {
+      if (spy === "D") {
+        if (voted === "D") {
+          setTextBox("You are spotted! You lost.");
+        } else {
+          setTextBox("Player D is the spy. You won!");
+        }
+      } else {
+        if (voted === spy) {
+          setTextBox(voted + " is the spy. Good job!");
+        } else {
+          setTextBox(voted + " is not the spy. You lost.");
+        }
+      }
+    }, 1000);
   };
   // Start game--------------------------------------------------------------------------
   const startGameButton = () => {
@@ -232,6 +276,8 @@ const GamePage = ({ userName }) => {
     setWord1(word1);
     setWord2(word2);
     setWord3(word3);
+    spy = findspy(myWord, word1, word2, word3, spy_word);
+    console.log(spy);
     console.log("myword: " + myWord + " wordA: " + word1 + " wordB: " + word2 + " wordC: " + word3);
 
     setTimeout(() => {
