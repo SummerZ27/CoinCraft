@@ -16,9 +16,9 @@ const game_prompt =
 const action_describe =
   "Now it's your turn. Only generate one short sentence of your description of the phrase and encapsulate your response in between two '%' signs. Make sure your description is extremely non-specific so that the spy couldn't tell whether he is the spy or not and doesn't include the given phrase.";
 const action_vote_test =
-  "Now vote someone out. You can't vote yourself out. Vote out the person whose response is the most likely to be the spy's. A spy's response can be describing another similar object, completely irrelevant, or too vague. Generate the name of your chosen player (select one of A,B,C,D that is not yourself) only. Encapsulate your single-letter response A, B, C, or D in between two '%' signs.";
+  "Now vote someone out. Vote out the person whose response is the most likely to be the spy's. A spy's response can be describing another similar object, completely irrelevant, or too vague. Generate the name of your chosen player (select one of A,B,C,D that is not yourself) only. Encapsulate your single-letter response A, B, C, or D in between two '%' signs. You can't vote yourself out.";
 const round2 =
-  "In the last round, a player is voted out. However, the voted out player is not the spy. The remaining three players should describe their words again. ";
+  "In the last round, a player is voted out. However, the voted out player is not the spy. ";
 const round2_describe =
   "Now it's your turn. Make sure your description in this round is built upon descriptions in the previous round, you can also shortly comment on other people's performace. Only generate one short sentence and encapsulate your response in between two '%' signs. Your response should be less than twenty words.";
 

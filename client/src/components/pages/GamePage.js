@@ -17,7 +17,7 @@ const GamePage = ({ userName }) => {
   const [Word1, setWord1] = useState(" ");
   const [Word2, setWord2] = useState(" ");
   const [Word3, setWord3] = useState(" ");
-  let round = 0;
+  const [round, setRound] = useState(0);
   let responseA = " ";
   let responseB = " ";
   let responseC = " ";
@@ -142,6 +142,7 @@ const GamePage = ({ userName }) => {
     }, 3000);
   };
   const secondQuery = () => {
+    console.log(round);
     setTimeout(() => {
       changeTurn();
       changeTurn();
@@ -249,7 +250,7 @@ const GamePage = ({ userName }) => {
   };
   const vote = () => {
     console.log("voted");
-    round++;
+    setRound(1);
     setTimeout(() => {
       changeTurn();
       changeTurn();
@@ -295,6 +296,7 @@ const GamePage = ({ userName }) => {
   const vote3 = () => {
     setTimeout(() => {
       changeTurn();
+      setRound(1);
       setTextBox("AI Player C is voting...");
       post("/api/voteC", {
         descriptionD: responseD,
@@ -319,6 +321,7 @@ const GamePage = ({ userName }) => {
       changeTurn();
       changeTurn();
       setTextBox("AI Player 1 is voting...");
+      console.log(round);
       console.log(responseD2, " ", responseA2, " ", responseB2);
       post("/api/voteA2", {
         descriptionD2: responseD2,
@@ -360,6 +363,7 @@ const GamePage = ({ userName }) => {
 
   const votingdecision = () => {
     setTimeout(() => {
+      console.log("votingdecision");
       setTextBox("Counting votes...");
       const numbers = { A, B, C, D };
       const maxNumber = Math.max(A, B, C, D);
@@ -385,6 +389,7 @@ const GamePage = ({ userName }) => {
 
   const votingdecision2 = () => {
     setTimeout(() => {
+      console.log("votingdecision2");
       setTextBox("Counting votes...");
       const numbers = { A, B, C, D };
       const maxNumber = Math.max(A, B, C, D);
@@ -427,6 +432,7 @@ const GamePage = ({ userName }) => {
     }, 1000);
   };
   const votingvalidate2 = (voted) => {
+    console.log("votingvalidate2");
     setTimeout(() => {
       if (voted == "D") {
         if (spy == "D") {
@@ -439,7 +445,6 @@ const GamePage = ({ userName }) => {
           setTextBox(voted + " is the spy. Good job! Game over");
         } else {
           setTextBox(voted + " is not the spy." + spy + " is the spy. Game over.");
-          gameround2(voted);
         }
       }
     }, 1000);
@@ -452,9 +457,11 @@ const GamePage = ({ userName }) => {
       C = 0;
       D = 0;
       setTextBox(
-        "Round 2 " +
+        "Round 2: " +
           voted +
-          " is out. Now let's find the spy out of the remaining three players. Please enter your description below"
+          " is out. However, " +
+          voted +
+          " is not the spy. Now let's find the spy out of the remaining three players. Please enter your description below"
       );
       changeTurn();
     }, 1000);
@@ -462,7 +469,7 @@ const GamePage = ({ userName }) => {
 
   // Start game--------------------------------------------------------------------------
   const startGameButton = () => {
-    round = 0;
+    setRound(0);
     clickCount = 0;
     changeTurn();
     var userInput = document.getElementById("user-input");
@@ -571,9 +578,9 @@ const GamePage = ({ userName }) => {
       <img src={player2} className="player2" id="player2" alt="Player 2" />
       <h1 className="playertags2">Player A</h1>
       <img src={player3} className="player3" id="player3" alt="Player 3" />
-      <h1 className="playertags3">Player B</h1>
+      <h1 className="playertags3">Player C</h1>
       <img src={player4} className="player4" id="player4" alt="Player 4" />
-      <h1 className="playertags4">Player C</h1>
+      <h1 className="playertags4">Player B</h1>
       <div className="div_sizer">
         <canvas id="canvas" width="100" height="100"></canvas>
         <div className="ui-controls">
