@@ -22,31 +22,29 @@ const rules = () => {
         Home
       </button>
       <h1 className="title">Rules</h1>
+      <h2 className="body"> Round length: 1-3 minutes.</h2>
       <h2 className="body">
         {" "}
-        Round length: 6-10 minutes. Shorter for smaller groups, longer for larger.
+        The players are given a noun to start the game. The noun is the same for the player and AIs
+        (e.g., bank) except for one player, who is randomly given the "spy" noun. The spy does not
+        know they have a different noun than the other players.
       </h2>
       <h2 className="body">
         {" "}
-        The location: round starts, each player is given a location card. The location is the same
-        for all players (e.g., the bank) except for one player, who is randomly given the "spy"
-        card. The spy does not know the round's location.
+        The first round begins with players writing a description for their objects. The
+        descriptions are read to the large group and players vote on who to eliminate. The player
+        with the most votes is eliminated from the game.
       </h2>
       <h2 className="body">
         {" "}
-        Questioning: the game leader (person who started the game) begins by questioning another
-        player about the location. Example: ("is this a place where children are welcome?").
+        If the spy or human player are eliminated, the game ends. If neither are eliminated, the
+        game continues to a second round where players can rewrite their descriptions and try to
+        blend them into the other's original descriptions.
       </h2>
       <h2 className="body">
         {" "}
-        Answering: the questioned player must answer. No follow up questions allowed. After they
-        answer, it's then their turn to ask someone else a question. This continues until round is
-        over.
-      </h2>
-      <h2 className="body">
-        {" "}
-        No retaliation questions: if someone asked you a question for their turn, you cannot then
-        immediately ask them a question back for your turn. You must choose someone else.
+        The game ends after the second round. If the spy survives both rounds they win. If the
+        players eliminate the spy in either round they win the game.
       </h2>
     </div>
   );
