@@ -111,6 +111,49 @@ router.post("/queryC", (req, res) => {
   makeQuery();
 });
 
+router.post("/queryA2", (req, res) => {
+  const makeQuery = async () => {
+    try {
+      const queryresponse = await ragManager.PlayerAtypes2(
+        req.body.descriptionD,
+        req.body.descriptionA,
+        req.body.descriptionB,
+        req.body.descriptionC,
+        req.body.descriptionD2,
+        req.body.phrase
+      );
+      res.send({ queryresponse });
+    } catch (error) {
+      console.log("error:", error);
+      res.status(500);
+      res.send({});
+    }
+  };
+  makeQuery();
+});
+
+router.post("/queryB2", (req, res) => {
+  const makeQuery = async () => {
+    try {
+      const queryresponse = await ragManager.PlayerBtypes2(
+        req.body.descriptionD,
+        req.body.descriptionA,
+        req.body.descriptionB,
+        req.body.descriptionC,
+        req.body.descriptionD2,
+        req.body.descriptionA2,
+        req.body.phrase
+      );
+      res.send({ queryresponse });
+    } catch (error) {
+      console.log("error:", error);
+      res.status(500);
+      res.send({});
+    }
+  };
+  makeQuery();
+});
+
 router.post("/voteA", (req, res) => {
   const makeQuery = async () => {
     try {

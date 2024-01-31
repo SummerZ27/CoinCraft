@@ -20,12 +20,16 @@ const GamePage = ({ userName }) => {
   let responseA = " ";
   let responseB = " ";
   let responseC = " ";
+  let responseD = " ";
+  let responseD2 = " ";
+  let responseA2 = " ";
   const [round, setRound] = useState(0);
   let A = 0;
   let B = 0;
   let C = 0;
   let D = 0;
   const [spy, setSpy] = useState("");
+  let clickCount = 0;
   const countVote = (response) => {
     console.log(response);
 
@@ -70,7 +74,14 @@ const GamePage = ({ userName }) => {
   };
 
   const handleInputChange = (event) => {
-    setInputText(event.target.value);
+    if (round == 0) {
+      setInputText(event.target.value);
+      responseD = event.target.value;
+    }
+    if (round == 1) {
+      setInputText(event.target.value);
+      responseD2 = event.target.value;
+    }
   };
 
   // Make Query--------------------------------------------------------------------------
@@ -79,7 +90,7 @@ const GamePage = ({ userName }) => {
     changeTurn();
     changeTurn();
     setTextBox("AI Player A is typing...");
-    post("/api/queryA", { descriptionD: inputText, phrase: Word1 })
+    post("/api/queryA", { descriptionD: responseD, phrase: Word1 })
       .then((res) => {
         setTextBox("Player A:" + res.queryresponse.split("%")[1]);
         responseA = res.queryresponse.split("%")[1];
@@ -94,7 +105,7 @@ const GamePage = ({ userName }) => {
     setTimeout(() => {
       changeTurn();
       setTextBox("AI Player B is typing...");
-      post("/api/queryB", { descriptionD: inputText, descriptionA: responseA, phrase: Word2 })
+      post("/api/queryB", { descriptionD: responseD, descriptionA: responseA, phrase: Word2 })
         .then((res) => {
           setTextBox("Player B:" + res.queryresponse.split("%")[1]);
           responseB = res.queryresponse.split("%")[1];
@@ -103,7 +114,7 @@ const GamePage = ({ userName }) => {
         .catch(() => {
           setTextBox("error during query. check your server logs!");
         });
-    }, 2000);
+    }, 3000);
   };
 
   const makeQuery3 = () => {
@@ -128,27 +139,54 @@ const GamePage = ({ userName }) => {
         .catch(() => {
           setTextBox("error during query. check your server logs!");
         });
-    }, 2000);
+    }, 3000);
   };
   const secondQuery = () => {
     setTimeout(() => {
       changeTurn();
-      setTextBox("AI Player is typing...");
-      post("/api/queryA", {
-        descriptionD: inputText,
+      changeTurn();
+      setTextBox("AI Player A is typing...");
+      post("/api/queryA2", {
+        descriptionD: responseD,
+        descriptionA: responseA,
         descriptionB: responseB,
         descriptionC: responseC,
+        descriptionD2: responseD2,
         phrase: Word1,
       })
         .then((res) => {
           setTextBox("Player A:" + res.queryresponse.split("%")[1]);
-          responseA = res.queryresponse.split("%")[1];
-          voteprompt();
+          responseA2 = res.queryresponse.split("%")[1];
+          secondQuery2();
         })
         .catch(() => {
           setTextBox("error during query. check your server logs!");
         });
-    }, 2000);
+    }, 1000);
+  };
+
+  const secondQuery2 = () => {
+    setTimeout(() => {
+      changeTurn();
+      setTextBox("AI Player B is typing...");
+      post("/api/queryB2", {
+        descriptionD: responseD,
+        descriptionA: responseA,
+        descriptionB: responseB,
+        descriptionC: responseC,
+        descriptionD2: responseD2,
+        descriptionA2: responseA2,
+        phrase: Word2,
+      })
+        .then((res) => {
+          setTextBox("Player B:" + res.queryresponse.split("%")[1]);
+          responseA = res.queryresponse.split("%")[1];
+          voteprompt2();
+        })
+        .catch(() => {
+          setTextBox("error during query. check your server logs!");
+        });
+    }, 6000);
   };
 
   // Vote--------------------------------------------------------------------------
@@ -157,6 +195,12 @@ const GamePage = ({ userName }) => {
     setTimeout(() => {
       changeTurn();
       setTextBox("Now it's time to vote for round one. Who do you think is the spy?");
+    }, 3000);
+  };
+  const voteprompt2 = () => {
+    setTimeout(() => {
+      changeTurn();
+      setTextBox("Now it's time to vote for round two. Who do you think is the spy?");
     }, 3000);
   };
   const voteA = () => {
@@ -186,7 +230,7 @@ const GamePage = ({ userName }) => {
       changeTurn();
       setTextBox("AI Player A is voting...");
       post("/api/voteA", {
-        descriptionD: inputText,
+        descriptionD: responseD,
         descriptionA: responseA,
         descriptionB: responseB,
         descriptionC: responseC,
@@ -200,14 +244,14 @@ const GamePage = ({ userName }) => {
         .catch(() => {
           setTextBox("error during query. check your server logs!");
         });
-    }, 2000); // 1200 milliseconds (1.2 seconds) delay
+    }, 3000);
   };
   const vote2 = () => {
     setTimeout(() => {
       changeTurn();
       setTextBox("AI Player B is voting...");
       post("/api/voteB", {
-        descriptionD: inputText,
+        descriptionD: responseD,
         descriptionA: responseA,
         descriptionB: responseB,
         descriptionC: responseC,
@@ -221,14 +265,14 @@ const GamePage = ({ userName }) => {
         .catch(() => {
           setTextBox("error during query. check your server logs!");
         });
-    }, 2000);
+    }, 3000);
   };
   const vote3 = () => {
     setTimeout(() => {
       changeTurn();
       setTextBox("AI Player C is voting...");
       post("/api/voteC", {
-        descriptionD: inputText,
+        descriptionD: responseD,
         descriptionA: responseA,
         descriptionB: responseB,
         descriptionC: responseC,
@@ -242,7 +286,7 @@ const GamePage = ({ userName }) => {
         .catch(() => {
           setTextBox("error during query. check your server logs!");
         });
-    }, 2000);
+    }, 3000);
   };
   const votingdecision = () => {
     setTimeout(() => {
@@ -301,6 +345,7 @@ const GamePage = ({ userName }) => {
 
   // Start game--------------------------------------------------------------------------
   const startGameButton = () => {
+    setRound(0);
     clickCount = 0;
     changeTurn();
     var userInput = document.getElementById("user-input");
@@ -321,14 +366,11 @@ const GamePage = ({ userName }) => {
 
     setTimeout(() => {
       setTextBox("Your Word is: " + myWord);
-    }, 1200); // 1200 milliseconds (1.2 seconds) delay
-
-    const roundOneDelay = 2800;
+    }, 1200);
     setTimeout(() => {
       setTextBox("Round One. Enter your description in the textbox below.");
-    }, roundOneDelay);
+    }, 2800);
   };
-  let clickCount = 0;
 
   // change turn--------------------------------------------------------------------------
 
@@ -385,6 +427,7 @@ const GamePage = ({ userName }) => {
     }
   }
   const descriptionsubmit = () => {
+    setInputText(" ");
     if (round === 0) {
       makeQuery();
     } else if (round === 1) {
@@ -428,9 +471,6 @@ const GamePage = ({ userName }) => {
         />
         <button onClick={descriptionsubmit}>Submit</button>
       </div>
-      {/* <button onClick={changeTurn} className="changeTurn" id="changeTurn">
-        Change Turn
-      </button> */}
       <button onClick={voteA} className="voteA">
         A
       </button>

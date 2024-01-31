@@ -353,7 +353,7 @@ const DiceRoller = () => {
     });
   }
 
-  return <div className="Score">Score: {score}</div>;
+  //return <div className="Score">Score: {score}</div>;
 };
 
 export default DiceRoller;

@@ -17,6 +17,11 @@ const action_describe =
   "Now it's your turn. Only generate one short sentence of your description of the phrase and encapsulate your response in between two '%' signs. Make sure your description is extremely non-specific so that the spy couldn't tell whether he is the spy or not and doesn't include the given phrase.";
 const action_vote_test =
   "Now vote someone out. You can't vote yourself out. Vote out the person whose response is the most likely to be the spy's. A spy's response can be describing another similar object, completely irrelevant, or too vague. Generate the name of your chosen player (select one of A,B,C,D that is not yourself) only. Encapsulate your single-letter response A, B, C, or D in between two '%' signs.";
+const round2 =
+  "In the last round, a player is voted out. However, the voted out player is not the spy. The remaining three players should describe their words again. ";
+const round2_describe =
+  "Now it's your turn. Make sure your description in this round is built upon descriptions in the previous round, you can also shortly comment on other people's performace. Only generate one short sentence and encapsulate your response in between two '%' signs. Your response should be less than twenty words.";
+
 const PlayerAtypes = async (descriptionD, phrase) => {
   const prompt = {
     model: MODEL,
@@ -86,7 +91,7 @@ const PlayerAvotes = async (descriptionD, descriptionA, descriptionB, descriptio
         content: `You are player A. Your phrase is '${phrase}'. In the past round, Player D said: '${descriptionD}.' And then you(Player A) said:'${descriptionA}.' And then Player B said:'${descriptionB}.'And then Player C said:'${descriptionC}.'`,
       },
     ],
-    temperature: 0.3,
+    temperature: 0.2,
   };
   const completion = await anyscale.chat.completions.create(prompt);
   return completion.choices[0].message.content;
@@ -105,7 +110,7 @@ const PlayerBvotes = async (descriptionD, descriptionA, descriptionB, descriptio
         content: `You are Player B. Your phrase is '${phrase}'. Player D said: '${descriptionD}.' And then Player A said:'${descriptionA}.' And then you(Player B) said:'${descriptionB}.'And then Player C said:'${descriptionC}.'`,
       },
     ],
-    temperature: 0.3,
+    temperature: 0.2,
   };
   const completion = await anyscale.chat.completions.create(prompt);
   return completion.choices[0].message.content;
@@ -124,31 +129,64 @@ const PlayerCvotes = async (descriptionD, descriptionA, descriptionB, descriptio
         content: `You are Player C. Your phrase is '${phrase}'. Player D said: '${descriptionD}.' And then Player A said:'${descriptionA}.' And then Player B said:'${descriptionB}.' And then you(Player C) said:'${descriptionC}.'`,
       },
     ],
+    temperature: 0.2,
+  };
+  const completion = await anyscale.chat.completions.create(prompt);
+  return completion.choices[0].message.content;
+};
+
+const PlayerAtypes2 = async (
+  descriptionD,
+  descriptionA,
+  descriptionB,
+  descriptionC,
+  descriptionD2,
+  phrase
+) => {
+  const prompt = {
+    model: MODEL,
+    messages: [
+      {
+        role: "system",
+        content: `${game_prompt} ${round2}$ ${round2_describe}`,
+      },
+      {
+        role: "user",
+        content: `Your phrase is '${phrase}'. Player D said: '${descriptionD}.' Player A said:'${descriptionA}.' Player B said:'${descriptionB}.' Player C said:'${descriptionC}.'In the second round, Player D said '${descriptionD2}.'`,
+      },
+    ],
     temperature: 0.3,
   };
   const completion = await anyscale.chat.completions.create(prompt);
   return completion.choices[0].message.content;
 };
 
-const PlayerAtypes2 = async (descriptionD, phrase) => {
+const PlayerBtypes2 = async (
+  descriptionD,
+  descriptionA,
+  descriptionB,
+  descriptionC,
+  descriptionD2,
+  descriptionA2,
+  phrase
+) => {
   const prompt = {
     model: MODEL,
     messages: [
       {
         role: "system",
-        content: `${game_prompt} ${action_describe}`,
+        content: `${game_prompt} ${round2}$ ${round2_describe}`,
       },
       {
         role: "user",
-        content: `Your phrase is '${phrase}'. Player D says: '${descriptionD}.'`,
+        content: `Your phrase is '${phrase}'. Player D said: '${descriptionD}.' Player A said:'${descriptionA}.' Player B said:'${descriptionB}.'Player C said:'${descriptionC}.' In the second round, Player D said '${descriptionD2}.' In the second round, the other player said '${descriptionA2}.'`,
       },
     ],
-    temperature: 0.5,
+    temperature: 0.3,
   };
   const completion = await anyscale.chat.completions.create(prompt);
   return completion.choices[0].message.content;
 };
-
 module.exports = {
   PlayerAtypes: PlayerAtypes,
   PlayerBtypes: PlayerBtypes,
@@ -156,4 +194,6 @@ module.exports = {
   PlayerAvotes: PlayerAvotes,
   PlayerBvotes: PlayerBvotes,
   PlayerCvotes: PlayerCvotes,
+  PlayerAtypes2: PlayerAtypes2,
+  PlayerBtypes2: PlayerBtypes2,
 };
