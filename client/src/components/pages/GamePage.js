@@ -17,14 +17,15 @@ const GamePage = ({ userName }) => {
   const [Word1, setWord1] = useState(" ");
   const [Word2, setWord2] = useState(" ");
   const [Word3, setWord3] = useState(" ");
-  const [responseA, setResponseA] = useState(" ");
-  const [responseB, setResponseB] = useState(" ");
-  const [responseC, setResponseC] = useState(" ");
+  let responseA = " ";
+  let responseB = " ";
+  let responseC = " ";
+  const [round, setRound] = useState(0);
   let A = 0;
   let B = 0;
   let C = 0;
   let D = 0;
-  let spy;
+  const [spy, setSpy] = useState("");
   const countVote = (response) => {
     console.log(response);
 
@@ -81,7 +82,7 @@ const GamePage = ({ userName }) => {
     post("/api/queryA", { descriptionD: inputText, phrase: Word1 })
       .then((res) => {
         setTextBox("Player A:" + res.queryresponse.split("%")[1]);
-        setResponseA(res.queryresponse.split("%")[1]);
+        responseA = res.queryresponse.split("%")[1];
         makeQuery2();
       })
       .catch(() => {
@@ -96,7 +97,7 @@ const GamePage = ({ userName }) => {
       post("/api/queryB", { descriptionD: inputText, descriptionA: responseA, phrase: Word2 })
         .then((res) => {
           setTextBox("Player B:" + res.queryresponse.split("%")[1]);
-          setResponseB(res.queryresponse.split("%")[1]);
+          responseB = res.queryresponse.split("%")[1];
           makeQuery3();
         })
         .catch(() => {
@@ -106,9 +107,13 @@ const GamePage = ({ userName }) => {
   };
 
   const makeQuery3 = () => {
+    setRound(1);
     setTimeout(() => {
       changeTurn();
       setTextBox("AI Player C is typing...");
+      console.log(inputText);
+      console.log(responseA);
+      console.log(responseB);
       post("/api/queryC", {
         descriptionD: inputText,
         descriptionA: responseA,
@@ -117,13 +122,33 @@ const GamePage = ({ userName }) => {
       })
         .then((res) => {
           setTextBox("Player C:" + res.queryresponse.split("%")[1]);
-          setResponseC(res.queryresponse.split("%")[1]);
+          responseC = res.queryresponse.split("%")[1];
           voteprompt();
         })
         .catch(() => {
           setTextBox("error during query. check your server logs!");
         });
-    }, 2000); // 1200 milliseconds (1.2 seconds) delay
+    }, 2000);
+  };
+  const secondQuery = () => {
+    setTimeout(() => {
+      changeTurn();
+      setTextBox("AI Player is typing...");
+      post("/api/queryA", {
+        descriptionD: inputText,
+        descriptionB: responseB,
+        descriptionC: responseC,
+        phrase: Word1,
+      })
+        .then((res) => {
+          setTextBox("Player A:" + res.queryresponse.split("%")[1]);
+          responseA = res.queryresponse.split("%")[1];
+          voteprompt();
+        })
+        .catch(() => {
+          setTextBox("error during query. check your server logs!");
+        });
+    }, 2000);
   };
 
   // Vote--------------------------------------------------------------------------
@@ -131,8 +156,8 @@ const GamePage = ({ userName }) => {
   const voteprompt = () => {
     setTimeout(() => {
       changeTurn();
-      setTextBox("Now it's time to vote. Who do you think is the spy?");
-    }, 3000); // 1200 milliseconds (1.2 seconds) delay
+      setTextBox("Now it's time to vote for round one. Who do you think is the spy?");
+    }, 3000);
   };
   const voteA = () => {
     setTimeout(() => {
@@ -246,23 +271,38 @@ const GamePage = ({ userName }) => {
 
   const votingvalidate = (voted) => {
     setTimeout(() => {
-      if (spy === "D") {
-        if (voted === "D") {
+      if (voted == "D") {
+        if (spy == "D") {
           setTextBox("You are spotted! You lost.");
         } else {
-          setTextBox("Player D is the spy. You won!");
+          setTextBox("D is not the spy. " + spy + " is the spy. Human player is out. Game over.");
         }
       } else {
-        if (voted === spy) {
-          setTextBox(voted + " is the spy. Good job!");
+        if (voted == spy) {
+          setTextBox(voted + " is the spy. Good job! Game over");
         } else {
-          setTextBox(voted + " is not the spy. You lost.");
+          setTextBox(voted + " is not the spy. Next round");
+          gameround2(voted);
         }
       }
     }, 1000);
   };
+
+  const gameround2 = (voted) => {
+    setTimeout(() => {
+      setTextBox(
+        "Round 2 " +
+          voted +
+          " is out. Now let's find the spy out of the remaining three players. Please enter your description below"
+      );
+      changeTurn();
+    }, 1000);
+  };
+
   // Start game--------------------------------------------------------------------------
   const startGameButton = () => {
+    clickCount = 0;
+    changeTurn();
     var userInput = document.getElementById("user-input");
     userInput.classList.add("user-input-effect");
     var startGlowGreen = document.getElementById("start");
@@ -276,8 +316,7 @@ const GamePage = ({ userName }) => {
     setWord1(word1);
     setWord2(word2);
     setWord3(word3);
-    spy = findspy(myWord, word1, word2, word3, spy_word);
-    console.log(spy);
+    setSpy(findspy(myWord, word1, word2, word3, spy_word));
     console.log("myword: " + myWord + " wordA: " + word1 + " wordB: " + word2 + " wordC: " + word3);
 
     setTimeout(() => {
@@ -345,7 +384,13 @@ const GamePage = ({ userName }) => {
       userInput.classList.add("user-input-effect");
     }
   }
-
+  const descriptionsubmit = () => {
+    if (round === 0) {
+      makeQuery();
+    } else if (round === 1) {
+      secondQuery();
+    }
+  };
   return (
     <div
       style={{
@@ -381,7 +426,7 @@ const GamePage = ({ userName }) => {
           onChange={handleInputChange}
           placeholder="Describe your phrase..."
         />
-        <button onClick={makeQuery}>Submit</button>
+        <button onClick={descriptionsubmit}>Submit</button>
       </div>
       {/* <button onClick={changeTurn} className="changeTurn" id="changeTurn">
         Change Turn

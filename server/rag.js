@@ -12,14 +12,11 @@ const anyscale = new OpenAI({
 });
 
 const game_prompt =
-  "We are playing a game. There are 4 players including you. One of the player, the 'spy', is given a phrase different than the one given to everyone else. You don't know whether you are the 'spy' or not. In each round, everyone describes their phrase and vote someone they think are the 'spy' out. If they are only two people left and the spy is still there, then the spy wins. Now let's play this game.";
+  "We are playing a game. There are 4 players including you. One of the player, the 'spy', is given a phrase different than the one given to everyone else. You don't know whether you are the 'spy' or not. In each round, everyone describes their phrase and vote someone they think are the 'spy' out. You want to generate your response such that it is not too specific that it reveals your identity, but also not too vague. Your response needs to describe your word accurately. You cannot lie about your word. You cannot respond with something that doesn't actually describe your word. Now let's play this game.";
 const action_describe =
   "Now it's your turn. Only generate one short sentence of your description of the phrase and encapsulate your response in between two '%' signs. Make sure your description is extremely non-specific so that the spy couldn't tell whether he is the spy or not and doesn't include the given phrase.";
-const action_vote =
-  "Now vote someone out. You can't vote yourself. Vote out the person whose response is the most likely to be the spy's. A spy's response can be a response that's too vague or pointing to another object. Only generate the name of your chosen player (select one of A,B,C,D that is not yourself) and encapsulate your single-letter response in between two '%' signs. ";
-
 const action_vote_test =
-  "Now vote someone out. Vote out the person whose response is the most likely to be the spy's. A spy's response can be a response that's too vague or pointing to another object. Gnerate the name of your chosen player (select one of A,B,C,D that is not yourself) and let me know why you choose this player and not other players. Go over everyone's response. Encapsulate your single-letter response in between two '%' signs.";
+  "Now vote someone out. You can't vote yourself out. Vote out the person whose response is the most likely to be the spy's. A spy's response can be describing another similar object, completely irrelevant, or too vague. Generate the name of your chosen player (select one of A,B,C,D that is not yourself) only. Encapsulate your single-letter response A, B, C, or D in between two '%' signs.";
 const PlayerAtypes = async (descriptionD, phrase) => {
   const prompt = {
     model: MODEL,
@@ -67,7 +64,7 @@ const PlayerCtypes = async (descriptionD, descriptionA, descriptionB, phrase) =>
       },
       {
         role: "user",
-        content: `Your phrase is '${phrase}'. Player D says: '${descriptionD}.' Player A says:'${descriptionA}.' Player B says:'${descriptionB}.'`,
+        content: `Your phrase is '${phrase}'. Player D said: '${descriptionD}.' Player A said:'${descriptionA}.' Player B said:'${descriptionB}.' Your description should be about '${phrase}' and a bit more specific than the descriptions of player D, A, and B.`,
       },
     ],
     temperature: 0.5,
@@ -128,6 +125,25 @@ const PlayerCvotes = async (descriptionD, descriptionA, descriptionB, descriptio
       },
     ],
     temperature: 0.3,
+  };
+  const completion = await anyscale.chat.completions.create(prompt);
+  return completion.choices[0].message.content;
+};
+
+const PlayerAtypes2 = async (descriptionD, phrase) => {
+  const prompt = {
+    model: MODEL,
+    messages: [
+      {
+        role: "system",
+        content: `${game_prompt} ${action_describe}`,
+      },
+      {
+        role: "user",
+        content: `Your phrase is '${phrase}'. Player D says: '${descriptionD}.'`,
+      },
+    ],
+    temperature: 0.5,
   };
   const completion = await anyscale.chat.completions.create(prompt);
   return completion.choices[0].message.content;
