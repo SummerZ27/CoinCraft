@@ -9,6 +9,7 @@ import "../modules/Dice.css";
 import DiceRoller from "../modules/Dice.js";
 import getRandomWord from "../modules/getword.js";
 import { get, post } from "../../utilities";
+import redx from "../../public/redx.png";
 
 const GamePage = ({ userName }) => {
   const [inputText, setInputText] = useState("");
@@ -415,6 +416,18 @@ const GamePage = ({ userName }) => {
 
   const votingvalidate = (voted) => {
     setTimeout(() => {
+      if (voted == "A") {
+        var redx1on = document.getElementById("redx1");
+        redx1on.classList.add("on");
+      }
+      if (voted == "B") {
+        var redx2on = document.getElementById("redx2");
+        redx2on.classList.add("on");
+      }
+      if (voted == "C") {
+        var redx3on = document.getElementById("redx3");
+        redx3on.classList.add("on");
+      }
       if (voted == "D") {
         if (spy == "D") {
           setTextBox("You are spotted! You lost.");
@@ -469,6 +482,12 @@ const GamePage = ({ userName }) => {
 
   // Start game--------------------------------------------------------------------------
   const startGameButton = () => {
+    var redx1off = document.getElementById("redx1");
+    redx1off.classList.remove("on");
+    var redx2off = document.getElementById("redx2");
+    redx2off.classList.remove("on");
+    var redx3off = document.getElementById("redx3");
+    redx3off.classList.remove("on");
     setRound(0);
     clickCount = 0;
     changeTurn();
@@ -580,6 +599,9 @@ const GamePage = ({ userName }) => {
       <img src={player3} className="player3" id="player3" alt="Player 3" />
       <h1 className="playertags3">Player C</h1>
       <img src={player4} className="player4" id="player4" alt="Player 4" />
+      <img src={redx} className="redx1" id="redx1" alt="redx1" />
+      <img src={redx} className="redx2" id="redx2" alt="redx2" />
+      <img src={redx} className="redx3" id="redx3" alt="redx3" />
       <h1 className="playertags4">Player B</h1>
       <div className="div_sizer">
         <canvas id="canvas" width="100" height="100"></canvas>
