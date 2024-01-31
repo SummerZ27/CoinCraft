@@ -209,10 +209,10 @@ const GamePage = ({ userName }) => {
       console.log(round);
       setTextBox("You voted A");
       countVote("A");
-      if (round == 0) {
+      if (round === 0) {
         vote();
         console.log("true");
-      } else if (round == 1) {
+      } else if (round === 1) {
         console.log("Double true");
         Secondvote();
       }
@@ -223,11 +223,10 @@ const GamePage = ({ userName }) => {
       console.log(round);
       setTextBox("You voted B");
       countVote("B");
-      if (round == 0) {
+      if (round === 0) {
         vote();
         console.log("true");
-      }
-      if (round == 1) {
+      } else if (round === 1) {
         Secondvote();
         console.log("Double true");
       }
@@ -238,11 +237,10 @@ const GamePage = ({ userName }) => {
       console.log(round);
       setTextBox("You voted C");
       countVote("C");
-      if (round == 0) {
+      if (round === 0) {
         vote();
         console.log("true");
-      }
-      if (round == 1) {
+      } else if (round === 1) {
         Secondvote();
         console.log("Double true");
       }
@@ -254,6 +252,7 @@ const GamePage = ({ userName }) => {
     setTimeout(() => {
       changeTurn();
       changeTurn();
+      console.log(round);
       setTextBox("AI Player A is voting...");
       post("/api/voteA", {
         descriptionD: responseD,
@@ -270,6 +269,7 @@ const GamePage = ({ userName }) => {
         .catch(() => {
           setTextBox("error during query. check your server logs!");
         });
+      console.log(round);
     }, 3000);
   };
   const vote2 = () => {
