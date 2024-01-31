@@ -450,9 +450,13 @@ const GamePage = ({ userName }) => {
         Start Game
       </button>
       <img src={player1} className="player1" id="player1" alt="Player 1" />
+      <h1 className="playertags1">Player D</h1>
       <img src={player2} className="player2" id="player2" alt="Player 2" />
+      <h1 className="playertags2">Player A</h1>
       <img src={player3} className="player3" id="player3" alt="Player 3" />
+      <h1 className="playertags3">Player B</h1>
       <img src={player4} className="player4" id="player4" alt="Player 4" />
+      <h1 className="playertags4">Player C</h1>
       <div className="div_sizer">
         <canvas id="canvas" width="100" height="100"></canvas>
         <div className="ui-controls">
