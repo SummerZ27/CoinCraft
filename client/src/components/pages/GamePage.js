@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./GamePage.css";
-import background_photo from "../../public/gameroom_background.png";
+import background_photo from "../../public/futuristic.jpg";
 import player1 from "../../public/players.png";
 import player2 from "../../public/players.png";
 import player3 from "../../public/players.png";

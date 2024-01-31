@@ -3,11 +3,14 @@ import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/goo
 
 import { get, post } from "../../utilities.js";
 import "./Skeleton.css";
-import background_photo from "../../public/Background.jpg";
+import background_photo from "../../public/HomeBackground.jpg";
 const GOOGLE_CLIENT_ID = "819648348238-uvbmrkooo5ccovnco5mtr19mc8lkub17.apps.googleusercontent.com";
 
 const redirectToRules = () => {
   window.location.href = "/rules";
+};
+const redirectToLeaderboard = () => {
+  window.location.href = "/leaderboard";
 };
 
 const Skeleton = ({ handleLogin, handleLogout, userId }) => {
@@ -62,6 +65,9 @@ const Skeleton = ({ handleLogin, handleLogout, userId }) => {
           </button>
           <button onClick={redirectToRules} className="rulesButton">
             Rules
+          </button>
+          <button onClick={redirectToLeaderboard} className="leaderboardButton">
+            Leaderboard
           </button>
         </div>
       </div>
