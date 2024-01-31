@@ -21,3 +21,11 @@
 .body {
   color: white;
 }
+.container {
+  display: flex;
+}
+.column {
+  flex: 1;
+  padding: 10px;
+  border: 3px solid black;
+}

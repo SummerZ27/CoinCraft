@@ -23,7 +23,28 @@ const leaderboard = () => {
           Home
         </button>
         <h1 className="title">Leaderboard</h1>
-        <h2 className="body">Leader</h2>
+        <div class="container">
+          <div class="column" id="column1">
+            <h2 className="body">Leader 1</h2>
+            <h2 className="body">Leader 1</h2>
+            <h2 className="body">Leader 1</h2>
+            <h2 className="body">Leader 1</h2>
+            <h2 className="body">Leader 1</h2>
+            <h2 className="body">Leader 1</h2>
+            <h2 className="body">Leader 1</h2>
+            <h2 className="body">Leader 1</h2>
+          </div>
+          <div class="column" id="column2">
+            <h2 className="body">Leader 1</h2>
+            <h2 className="body">Leader 1</h2>
+            <h2 className="body">Leader 1</h2>
+            <h2 className="body">Leader 1</h2>
+            <h2 className="body">Leader 1</h2>
+            <h2 className="body">Leader 1</h2>
+            <h2 className="body">Leader 1</h2>
+            <h2 className="body">Leader 1</h2>
+          </div>
+        </div>
       </div>
     </div>
   );
