@@ -187,6 +187,44 @@ const PlayerBtypes2 = async (
   const completion = await anyscale.chat.completions.create(prompt);
   return completion.choices[0].message.content;
 };
+
+const PlayerAvotes2 = async (descriptionD2, descriptionA2, descriptionB2, phrase) => {
+  const prompt = {
+    model: MODEL,
+    messages: [
+      {
+        role: "system",
+        content: `${game_prompt} ${action_vote_test}`,
+      },
+      {
+        role: "user",
+        content: `You are player A. Your phrase is '${phrase}'. In the past round, Player D said: '${descriptionD2}.' And then you(Player A) said:'${descriptionA2}.' And then Player B said:'${descriptionB2}.'`,
+      },
+    ],
+    temperature: 0.2,
+  };
+  const completion = await anyscale.chat.completions.create(prompt);
+  return completion.choices[0].message.content;
+};
+
+const PlayerBvotes2 = async (descriptionD2, descriptionA2, descriptionB2, phrase) => {
+  const prompt = {
+    model: MODEL,
+    messages: [
+      {
+        role: "system",
+        content: `${game_prompt} ${action_vote_test}`,
+      },
+      {
+        role: "user",
+        content: `You are player B. Your phrase is '${phrase}'. In the past round, Player D said: '${descriptionD2}.' And then you(Player A) said:'${descriptionA2}.' And then Player B said:'${descriptionB2}.`,
+      },
+    ],
+    temperature: 0.2,
+  };
+  const completion = await anyscale.chat.completions.create(prompt);
+  return completion.choices[0].message.content;
+};
 module.exports = {
   PlayerAtypes: PlayerAtypes,
   PlayerBtypes: PlayerBtypes,
@@ -196,4 +234,6 @@ module.exports = {
   PlayerCvotes: PlayerCvotes,
   PlayerAtypes2: PlayerAtypes2,
   PlayerBtypes2: PlayerBtypes2,
+  PlayerAvotes2: PlayerAvotes2,
+  PlayerBvotes2: PlayerBvotes2,
 };

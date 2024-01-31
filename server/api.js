@@ -173,6 +173,7 @@ router.post("/voteA", (req, res) => {
   };
   makeQuery();
 });
+
 router.post("/voteB", (req, res) => {
   const makeQuery = async () => {
     try {
@@ -213,6 +214,43 @@ router.post("/voteC", (req, res) => {
   makeQuery();
 });
 
+router.post("/voteA2", (req, res) => {
+  const makeQuery = async () => {
+    try {
+      const queryresponse = await ragManager.PlayerAvotes2(
+        req.body.descriptionD2,
+        req.body.descriptionA2,
+        req.body.descriptionB2,
+        req.body.phrase
+      );
+      res.send({ queryresponse });
+    } catch (error) {
+      console.log("error:", error);
+      res.status(500);
+      res.send({});
+    }
+  };
+  makeQuery();
+});
+
+router.post("/voteB2", (req, res) => {
+  const makeQuery = async () => {
+    try {
+      const queryresponse = await ragManager.PlayerBvotes2(
+        req.body.descriptionD2,
+        req.body.descriptionA2,
+        req.body.descriptionB2,
+        req.body.phrase
+      );
+      res.send({ queryresponse });
+    } catch (error) {
+      console.log("error:", error);
+      res.status(500);
+      res.send({});
+    }
+  };
+  makeQuery();
+});
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
