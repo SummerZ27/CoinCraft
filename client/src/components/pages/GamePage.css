@@ -28,31 +28,31 @@ body {
   top: -100vh;
 }
 .player1 {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   position: absolute;
-  top: 250px;
-  left: 100px;
+  top: 400px;
+  left: 275px;
   filter: drop-shadow(0 0 20px blue) drop-shadow(0 0 50px blue);
   opacity: 50%;
 }
 
 .player2 {
-  width: 250px;
-  height: 250px;
+  width: 150px;
+  height: 150px;
   position: absolute;
-  top: 225px;
-  left: 600px;
+  top: 400px;
+  left: 650px;
   filter: drop-shadow(0 0 20px yellow) drop-shadow(0 0 100px yellow);
   opacity: 50%;
 }
 
 .player3 {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   position: absolute;
-  top: 250px;
-  right: 100px;
+  top: 400px;
+  right: 300px;
   filter: drop-shadow(0 0 20px red) drop-shadow(0 0 50px red);
   opacity: 50%;
 }
@@ -74,11 +74,11 @@ body {
 }
 
 .player4 {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   position: absolute;
-  top: 500px;
-  left: 600px;
+  top: 560px;
+  left: 620px;
   opacity: 50%;
 }
 .ui-controls {
@@ -274,4 +274,36 @@ body {
 .changeTurnGlow4 {
   filter: drop-shadow(0 0 20px white) drop-shadow(0 0 50px white);
   opacity: 100%;
+}
+.playertags1 {
+  color: white;
+  font-size: 30px;
+  font-family: "Audiowide", sans-serif;
+  position: relative;
+  top: 660px;
+  left: 650px;
+}
+.playertags2 {
+  color: white;
+  font-size: 30px;
+  font-family: "Audiowide", sans-serif;
+  top: 230px;
+  position: relative;
+  left: 300px;
+}
+.playertags3 {
+  color: white;
+  font-size: 30px;
+  font-family: "Audiowide", sans-serif;
+  top: 170px;
+  position: relative;
+  left: 970px;
+}
+.playertags4 {
+  color: white;
+  font-size: 30px;
+  font-family: "Audiowide", sans-serif;
+  position: relative;
+  top: 100px;
+  left: 660px;
 }

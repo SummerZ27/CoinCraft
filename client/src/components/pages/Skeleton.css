@@ -39,12 +39,12 @@ body {
   }
 }
 .game_Home_Subtitle {
-  font-family: "Encode Sans Condensed", sans-serif;
   font-size: 60px;
   position: relative;
   text-align: center;
   top: -500px;
-  color: black;
+  color: white;
+  font-family: "Audiowide", sans-serif;
 }
 .background_Container {
   background-size: cover;
@@ -55,8 +55,7 @@ body {
 .getStartedButton {
   position: relative;
   top: -500px;
-  background-color: white;
-  color: black;
+  color: white;
   padding: 10px 20px;
   border-radius: 10px;
   cursor: pointer;
@@ -67,6 +66,8 @@ body {
   cursor: pointer;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   transition: transform;
+  font-family: "Audiowide", sans-serif;
+  background-color: black;
 
   transition: all 0.5s;
 
@@ -81,23 +82,20 @@ body {
   bottom: -70%;
 }
 .getStartedButton:hover {
-  transform: translateY(-10px);
-  border: 5px solid #a9423f;
+  opacity: 90%;
+  filter: drop-shadow(0 0 10px white) drop-shadow(0 0 10px white);
 }
 .container {
   width: 100%; /* Set an appropriate width for the container */
   text-align: center; /* Center the button horizontally within the container */
 }
 
-.getStartedButton:hover {
-  background-color: #f0f0f0;
-}
-
 .rulesButton {
+  font-family: "Audiowide", sans-serif;
   position: relative;
   top: -500px;
-  background-color: white;
-  color: black;
+  color: white;
+  background-color: black;
   padding: 10px 20px;
   border-radius: 10px;
   cursor: pointer;
@@ -116,6 +114,25 @@ body {
   animation-fill-mode: backwards;
 }
 .rulesButton:hover {
-  transform: translateY(-10px);
-  border: 5px solid #a9423f;
+  opacity: 90%;
+  filter: drop-shadow(0 0 10px white) drop-shadow(0 0 10px white);
+}
+
+.leaderboardButton {
+  position: relative;
+  top: -500px;
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  margin: 0 auto;
+  font-family: "Audiowide", sans-serif;
+}
+.leaderboardButton:hover {
+  opacity: 90%;
+  filter: drop-shadow(0 0 10px white) drop-shadow(0 0 10px white);
 }

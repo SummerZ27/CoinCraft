@@ -1,5 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Rubik+Bubbles&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Bubblegum+Sans&family=Encode+Sans+Condensed:wght@700&display=swap");
+
 .title {
   text-align: center;
+  font-family: "Audiowide", sans-serif;
+  font-size: 50px;
+  position: relative;
+  top: -30px;
 }
 
 .homeButton {
@@ -9,9 +16,14 @@
   font-size: 24px;
   padding: 8px;
   border-radius: 12px;
+  font-family: "Audiowide", sans-serif;
+  cursor: pointer;
 }
 
 .body {
   text-align: left;
   padding: 10px 80px 10px 60px;
+  font-family: "Audiowide", sans-serif;
+  position: relative;
+  top: -30px;
 }

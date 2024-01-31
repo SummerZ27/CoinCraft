@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Rubik+Bubbles&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Bubblegum+Sans&family=Encode+Sans+Condensed:wght@700&display=swap");
+
+.homeButton {
+  background-color: white;
+  color: black;
+  text-align: center;
+  font-size: 24px;
+  padding: 8px;
+  border-radius: 12px;
+  font-family: "Audiowide", sans-serif;
+  cursor: pointer;
+}
+.homeButton:hover {
+  opacity: 90%;
+  filter: drop-shadow(0 0 10px white) drop-shadow(0 0 10px white);
+}
+.title {
+  color: white;
+}
+.body {
+  color: white;
+}
+.container {
+  display: flex;
+}
+.column {
+  flex: 1;
+  padding: 10px;
+  border: 3px solid black;
+}
