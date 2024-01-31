@@ -66,9 +66,9 @@ const Skeleton = ({ handleLogin, handleLogout, userId }) => {
           <button onClick={redirectToRules} className="rulesButton">
             Rules
           </button>
-          <button onClick={redirectToLeaderboard} className="leaderboardButton">
+          {/* <button onClick={redirectToLeaderboard} className="leaderboardButton">
             Leaderboard
-          </button>
+          </button> */}
         </div>
       </div>
     </GoogleOAuthProvider>

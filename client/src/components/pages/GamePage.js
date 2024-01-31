@@ -593,7 +593,7 @@ const GamePage = ({ userName }) => {
         Start Game
       </button>
       <img src={player1} className="player1" id="player1" alt="Player 1" />
-      <h1 className="playertags1">Player D</h1>
+      <h1 className="playertags1">{userName}</h1>
       <img src={player2} className="player2" id="player2" alt="Player 2" />
       <h1 className="playertags2">Player A</h1>
       <img src={player3} className="player3" id="player3" alt="Player 3" />
