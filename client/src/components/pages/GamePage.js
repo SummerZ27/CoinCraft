@@ -212,6 +212,7 @@ const GamePage = ({ userName }) => {
         vote();
         console.log("true");
       } else if (round == 1) {
+        console.log("Double true");
         Secondvote();
       }
     }, 800);
@@ -227,6 +228,7 @@ const GamePage = ({ userName }) => {
       }
       if (round == 1) {
         Secondvote();
+        console.log("Double true");
       }
     }, 800);
   };
@@ -241,12 +243,14 @@ const GamePage = ({ userName }) => {
       }
       if (round == 1) {
         Secondvote();
+        console.log("Double true");
       }
     }, 800);
   };
   const vote = () => {
+    console.log("voted");
+    round++;
     setTimeout(() => {
-      round++;
       changeTurn();
       changeTurn();
       setTextBox("AI Player A is voting...");
