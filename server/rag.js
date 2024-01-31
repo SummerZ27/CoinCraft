@@ -20,7 +20,7 @@ const action_vote_test =
 const round2 =
   "In the last round, a player is voted out. However, the voted out player is not the spy. ";
 const round2_describe =
-  "Now it's your turn. Make sure your description in this round is built upon descriptions in the previous round, you can also shortly comment on other people's performace. Only generate one short sentence and encapsulate your response in between two '%' signs. Your response should be less than twenty words.";
+  "Now it's your turn. Only generate one short sentence of your description of the word and shortly comment on other people's performace. Only generate one short sentence and encapsulate your response in between two '%' signs. Your response should be less than twenty words and doesn't include the given phrase.";
 
 const PlayerAtypes = async (descriptionD, phrase) => {
   const prompt = {
