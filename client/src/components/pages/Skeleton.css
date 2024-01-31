@@ -77,32 +77,6 @@ body {
   animation-direction: normal;
   animation-fill-mode: backwards;
 }
-.getStartedButton:active {
-  transform: scale(0.96);
-}
-.getStartedButton::before,
-.getStartedButton::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 100%;
-  width: 150%;
-  border: 2px solid red;
-}
-.button::before {
-  top: -70%;
-  background-image: radial-gradient(circle, blue 20%, transparent 20%),
-    radial-gradient(circle, transparent 20%, blue 20%, transparent 30%),
-    radial-gradient(circle, blue 20%, transparent 20%),
-    radial-gradient(circle, transparent 10%, blue 15%, transparent 20%),
-    radial-gradient(circle, blue 20%, transparent 20%),
-    radial-gradient(circle, blue 20%, transparent 20%),
-    radial-gradient(circle, blue 20%, transparent 20%),
-    radial-gradient(circle, blue 20%, transparent 20%);
-  background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 18% 18%;
-  background-position: 5% 90%, 10% 90%, 10% 90%, 15;
-}
 .button::after {
   bottom: -70%;
 }
